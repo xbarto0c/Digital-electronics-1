@@ -1,9 +1,9 @@
-# Digital-electronics-1 \n
-###### Header six example \n
-*Text written in italics* \n
+# Digital-electronics-1
+###### Header six example
+*Text written in italics*
 **Strongly emphasized text**
 **Text with combined _emphasis_**
-~~Strokethrough text
+~~Strokethrough text~~
 
 1. First thing in an ordered list
 2. Second thing in an ordered list
