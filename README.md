@@ -1,7 +1,7 @@
 # Digital-electronics-1
 ###### Header six example
 *Text written in italics*
-*Strongly emphasized text**
+**Strongly emphasized text**
 **Text with combined _emphasis_**
 ~~Strokethrough text
 
