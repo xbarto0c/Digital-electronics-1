@@ -9,6 +9,5 @@
 | 1 | 1 | 0 | 0 |
 | 1 | 1 | 1 | 0 |
 
-![Truth table](/images/Function_values.jpg)
-https://www.edaplayground.com/x/msZF - automatic!
+![Truth table](/Labs/01-gates/images/Function_values.jpg)
 [My EDA De Morgan Law's code](https://www.edaplayground.com/x/msZF)
