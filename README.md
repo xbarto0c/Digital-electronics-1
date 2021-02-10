@@ -42,3 +42,27 @@ begin
   O <= I1 and I2;
 end architecture RTL;
 ```
+```VHDL
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+--entita název je, definice vstupů, výstupů
+entity gates is 
+	port{
+    	a_i{	: in std_logic;
+        b_i{	: in std_logic;
+        for_o{	: out std_logic;
+        fand_o{	: out std_logic;
+        fxor_o{	: out std_logic
+        };
+end entity gate;
+--_i se značí vstup, _o výstup
+
+--popis co se děje v dvojbranu
+architecture dataflow of gates is--dataflow se používá, je to název
+begin
+	for_o <= a_i_ or b_i:-- definice funkce or
+    fand_o <= a_i_ and b_i:--definice funkce and
+    fxor_o <= a_i_ xor b_i:
+end architecture dataflow;
+```
