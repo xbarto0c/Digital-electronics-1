@@ -19,7 +19,7 @@ First row cell 1 | First row cell 2
 Second row cell 1 | Second row cell 2
 
 # Listing of VHDL source code
-\\\VHDL 
+```VHDL 
 -- (this is a VHDL comment)
 /*
     this is a block comment (VHDL-2008)
@@ -41,4 +41,4 @@ architecture RTL of ANDGATE is
 begin
   O <= I1 and I2;
 end architecture RTL;
-\\\
+```
