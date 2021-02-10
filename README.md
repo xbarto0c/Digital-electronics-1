@@ -42,7 +42,7 @@ begin
   O <= I1 and I2;
 end architecture RTL;
 ```
-```
+```VHDL
 library IEEE;
 use IEEE.std_logic_1164.all;
 
