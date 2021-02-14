@@ -1,4 +1,5 @@
 [My(221048) Github Repository Link](https://github.com/xbarto0c/Digital-electronics-1):
+### https://github.com/xbarto0c/Digital-electronics-1
 
 | **c** | **b** |**a** | **f(c,b,a)** |
 | :-: | :-: | :-: | :-: |
