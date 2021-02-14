@@ -1,3 +1,5 @@
+[My(221048) Github Repository Link](https://github.com/xbarto0c/Digital-electronics-1):
+
 | **c** | **b** |**a** | **f(c,b,a)** |
 | :-: | :-: | :-: | :-: |
 | 0 | 0 | 0 | 1 |
@@ -22,9 +24,9 @@ entity gates is
         a_i    : in  std_logic;        
         b_i    : in  std_logic;        
         c_i    : in  std_logic;
-        fun_o  : out std_logic;    
+        fun_o  :     out std_logic;    
         fun_NAND_o : out std_logic;         
-        fun_NOR_o : out std_logic         
+        fun_NOR_o :  out std_logic         
     );
 end entity gates;
 
