@@ -17,7 +17,7 @@
 | 13 | 1 1 | 0 1 | 1 | 0 | 0 |
 | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
-## 2-bit comparator
+## 2-bit Comparator
 
 ![Karnaugh's maps and simplified functions for their respective previous functions:](/Labs/02-logic/images/Karnaughovy_mapy.jpg)
 
