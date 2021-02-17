@@ -17,9 +17,7 @@
 | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
-## Ètyøbitový komparátor
-[EDA playground link](https://www.edaplayground.com/x/EQTE):
-
+## 4-bit Comparator
 ### design.vhd
 ```VHDL
 ------------------------------------------------------------------------
@@ -170,5 +168,18 @@ begin
     end process p_stimulus;
 
 end architecture testbench;
-
 ```
+### Console error:
+[2021-02-17 08:53:38 EST] ghdl -i design.vhd testbench.vhd  && ghdl -m  tb_comparator_4bit && ghdl -r  tb_comparator_4bit   --vcd=dump.vcd && sed -i 's/^U/X/g; s/^-/X/g; s/^H/1/g; s/^L/0/g' dump.vcd 
+analyze design.vhd
+analyze testbench.vhd
+elaborate tb_comparator_4bit
+testbench.vhd:51:9:@0ms:(report note): Stimulus process started
+testbench.vhd:105:9:@900ns:(assertion error): Test failed for input combination: 0000, 1000
+testbench.vhd:119:9:@1us:(report note): Stimulus process finished
+Finding VCD file...
+./dump.vcd
+[2021-02-17 08:53:39 EST] Opening EPWave...
+Done
+### [EDA playground link](https://www.edaplayground.com/x/EQTE):
+
