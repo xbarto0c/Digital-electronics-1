@@ -17,5 +17,5 @@
 | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
-##Dvoubitový komparátor
+## Dvoubitový komparátor
 [EDA playground link](https://www.edaplayground.com/x/EQTE):
