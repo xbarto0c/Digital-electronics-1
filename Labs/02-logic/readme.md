@@ -183,5 +183,5 @@ Finding VCD file...
 [2021-02-17 08:53:39 EST] Opening EPWave...
 Done
 ```
-### [EDA playground link](https://www.edaplayground.com/x/EQTE):
+### [EDA playground link](https://www.edaplayground.com/x/EQTE)
 
