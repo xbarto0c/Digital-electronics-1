@@ -170,6 +170,7 @@ begin
 end architecture testbench;
 ```
 ### Console error:
+```
 [2021-02-17 08:53:38 EST] ghdl -i design.vhd testbench.vhd  && ghdl -m  tb_comparator_4bit && ghdl -r  tb_comparator_4bit   --vcd=dump.vcd && sed -i 's/^U/X/g; s/^-/X/g; s/^H/1/g; s/^L/0/g' dump.vcd 
 analyze design.vhd
 analyze testbench.vhd
@@ -181,5 +182,6 @@ Finding VCD file...
 ./dump.vcd
 [2021-02-17 08:53:39 EST] Opening EPWave...
 Done
+```
 ### [EDA playground link](https://www.edaplayground.com/x/EQTE):
 
