@@ -19,7 +19,7 @@
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 ## 2-bit comparator
 
-![Karnaugh's maps and simplified functions for their respective previous functions:](https://github.com/xbarto0c/Digital-electronics-1/tree/main/Labs/02-logic/images/Karnaughovy_mapy.jpg)
+![Karnaugh's maps and simplified functions for their respective previous functions:](/Labs/02-logic/images/Karnaughovy_mapy.jpg)
 
 ## 4-bit Comparator
 ### design.vhd
