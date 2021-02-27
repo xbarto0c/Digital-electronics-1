@@ -75,3 +75,33 @@ end architecture Behavioral;
 ### Multiplexer simulation screenshot:
 ![Multiplexer simulation screenshot:](/Labs/03-vivado/images/multiplexer_simulation.jpg)
 
+## 3. Vivado basics tutorial:
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_1.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_2.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_3.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_4.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_5.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_6.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_7.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_8.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_9.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_10.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_11.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_12.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_13.jpg)
+### Multiplexer simulation screenshot:
+![Multiplexer simulation screenshot:](/Labs/03-vivado/images/vivado_tutorial_14.jpg)
+

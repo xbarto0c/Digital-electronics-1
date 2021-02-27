@@ -2,3 +2,6 @@ Running: xsim.dir/tb_mux_2bit_4to1_behav/xsimk.exe -simmode gui -wdb tb_mux_2bit
 Design successfully loaded
 Design Loading Memory Usage: 6312 KB (Peak: 6312 KB)
 Design Loading CPU Usage: 108 ms
+Simulation completed
+Simulation Memory Usage: 6884 KB (Peak: 6884 KB)
+Simulation CPU Usage: 108 ms
