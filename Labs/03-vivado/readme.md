@@ -1,4 +1,5 @@
 | Název pinu: | Oznaèení pinu: |
+| :-: | :-: |
 | LED0 | H17 |
 | LED1 | K15 |
 | LED2 | J13 |
