@@ -1,4 +1,4 @@
-| Název pinu: | Oznaèení pinu: |
+| Pin name: | Pin name on the board : |
 | :-: | :-: |
 | LED0 | H17 |
 | LED1 | K15 |
