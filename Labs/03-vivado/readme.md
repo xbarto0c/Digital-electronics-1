@@ -1,3 +1,4 @@
+# 1.Connection of 16 LEDs and switches to the Nexys A7 board: 
 | Pin name: | Pin name on the board : |
 | :-: | :-: |
 | LED0 | H17 |
