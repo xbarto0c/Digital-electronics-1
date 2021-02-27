@@ -73,5 +73,5 @@ end architecture Behavioral;
     end process p_stimulus;
 ```
 
-### ![Multpiplexer simulation screenshot:](/Labs/03-vivado/images/multiplexer_simulation.jpg)
+![Multpiplexer simulation screenshot:](/Labs/03-vivado/images/multiplexer_simulation.jpg)
 
