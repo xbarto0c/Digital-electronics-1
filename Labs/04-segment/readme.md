@@ -271,3 +271,7 @@ end architecture Behavioral;
                         SW = "1000") 
                   else '0';
 ```
+
+### Simulation screenshot:
+
+![Simulation screenshot:](/Labs/04-segment/images/screenshot_simulation_led.jpg)
