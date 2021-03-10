@@ -2,3 +2,6 @@ Running: xsim.dir/tb_segment_behav/xsimk.exe -simmode gui -wdb tb_segment_behav.
 Design successfully loaded
 Design Loading Memory Usage: 5868 KB (Peak: 5868 KB)
 Design Loading CPU Usage: 15 ms
+Simulation completed
+Simulation Memory Usage: 6416 KB (Peak: 6416 KB)
+Simulation CPU Usage: 15 ms
