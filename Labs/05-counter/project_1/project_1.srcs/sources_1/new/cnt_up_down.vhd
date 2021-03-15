@@ -18,7 +18,7 @@ use ieee.numeric_std.all;
 ------------------------------------------------------------------------
 entity cnt_up_down is
     generic(
-        g_CNT_WIDTH : natural := 4      -- Number of bits for counter
+        g_CNT_WIDTH         : natural := 5      -- Number of bits for counter
     );
     port(
         clk      : in  std_logic;       -- Main clock
@@ -37,6 +37,7 @@ architecture behavioral of cnt_up_down is
     -- Local counter
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
 
+
 begin
     --------------------------------------------------------------------
     -- p_cnt_up_down:
@@ -52,11 +53,11 @@ begin
 
             elsif (en_i = '1') then       -- Test if counter is enabled
 
-
-                -- TEST COUNTER DIRECTION HERE
-
-
-                s_cnt_local <= s_cnt_local + 1;
+                if (cnt_up_i = '1') then
+                    s_cnt_local <= s_cnt_local + 1;
+                elsif (cnt_up_i = '0') then
+                    s_cnt_local <= s_cnt_local - 1;
+                end if;
 
 
             end if;

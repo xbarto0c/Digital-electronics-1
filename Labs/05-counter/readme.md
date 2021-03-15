@@ -1,3 +1,15 @@
+## Part 1:
+
+### Nexys A7 push buttons connection
+| Display pin name: | Pin name on the board : |
+| :-: | :-: |
+| BTNL | P17 |
+| BTNR | M17 |
+| BTNU | M18 |
+| BTND | P18 |
+| BTNC | N17 |
+
+
 | **Time interval** | **Number of clk periods** | **Number of clk periods in hex** | **Number of clk periods in binary** |
    | :-: | :-: | :-: | :-: |
    | 2&nbsp;ms | 200 000 | `x"3_0d40"` | `b"0011_0000_1101_0100_0000"` |

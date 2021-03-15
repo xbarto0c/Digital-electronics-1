@@ -68,12 +68,32 @@ begin
             reset => BTNC,
             ce_o  => s_en
         );
-
-    --------------------------------------------------------------------
-    -- Instance (copy) of cnt_up_down entity
+        
+    clk_en1 : entity work.clock_enable
+        generic map(
+            g_MAX => 1000000
+        )
+        port map(
+            clk   => CLK100MHz,
+            reset => BTNC,
+            ce_o  => s_en
+        );
     bin_cnt0 : entity work.cnt_up_down
         generic map(
-           g_CNT_WIDTH => 4
+           g_CNT_WIDTH => 5
+        )
+        port map(
+            clk     => CLK100MHz,
+            reset   => BTNC,
+            en_i    => s_en,
+            cnt_up_i=> SW(0),
+            cnt_o   => s_cnt
+        );
+    --------------------------------------------------------------------
+    -- Instance (copy) of cnt_up_down entity
+    bin_cnt1 : entity work.cnt_up_down
+        generic map(
+           g_CNT_WIDTH => 16
         )
         port map(
             clk     => CLK100MHz,
