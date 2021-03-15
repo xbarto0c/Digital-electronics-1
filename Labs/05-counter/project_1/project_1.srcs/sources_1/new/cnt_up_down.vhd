@@ -18,14 +18,15 @@ use ieee.numeric_std.all;
 ------------------------------------------------------------------------
 entity cnt_up_down is
     generic(
-        g_CNT_WIDTH         : natural := 5      -- Number of bits for counter
+        g_CNT_WIDTH         : natural := 4      -- Number of bits for counter
     );
     port(
         clk      : in  std_logic;       -- Main clock
         reset    : in  std_logic;       -- Synchronous reset
         en_i     : in  std_logic;       -- Enable input
         cnt_up_i : in  std_logic;       -- Direction of the counter
-        cnt_o    : out std_logic_vector(g_CNT_WIDTH - 1 downto 0)
+        cnt_o    : out std_logic_vector(g_CNT_WIDTH - 1 downto 0);
+        cnt_o_1  : out std_logic_vector(16 - 1 downto 0)
     );
 end entity cnt_up_down;
 
@@ -36,6 +37,7 @@ architecture behavioral of cnt_up_down is
 
     -- Local counter
     signal s_cnt_local : unsigned(g_CNT_WIDTH - 1 downto 0);
+    signal s_cnt_local_1 : unsigned(16 - 1 downto 0);
 
 
 begin
@@ -56,7 +58,21 @@ begin
                 if (cnt_up_i = '1') then
                     s_cnt_local <= s_cnt_local + 1;
                 elsif (cnt_up_i = '0') then
-                    s_cnt_local <= s_cnt_local - 1;
+                    s_cnt_local <= s_cnt_local - 1;  -- 5-bit counter
+                end if;
+
+
+            end if;
+            
+            if (reset = '1') then               -- Synchronous reset
+                s_cnt_local_1 <= (others => '0'); -- Clear all bits
+
+            elsif (en_i = '1') then       -- Test if counter is enabled
+
+                if (cnt_up_i = '1') then    -- 16-bit counter
+                    s_cnt_local_1 <= s_cnt_local_1 + 1;
+                elsif (cnt_up_i = '0') then
+                    s_cnt_local_1 <= s_cnt_local_1 - 1;
                 end if;
 
 
@@ -66,5 +82,6 @@ begin
 
     -- Output must be retyped from "unsigned" to "std_logic_vector"
     cnt_o <= std_logic_vector(s_cnt_local);
+    cnt_o_1 <= std_logic_vector(s_cnt_local_1);
 
 end architecture behavioral;

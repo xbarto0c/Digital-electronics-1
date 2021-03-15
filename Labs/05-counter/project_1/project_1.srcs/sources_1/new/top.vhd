@@ -36,7 +36,7 @@ entity top is
            CLK100MHz : in STD_LOGIC;
            BTNC : in STD_LOGIC;
            SW : in STD_LOGIC_VECTOR (1 - 1 downto 0);
-           LED : out STD_LOGIC_VECTOR (4 - 1 downto 0);
+           LED : out STD_LOGIC_VECTOR (16 - 1 downto 0);
            CA : out STD_LOGIC;
            CB : out STD_LOGIC;
            CC : out STD_LOGIC;
@@ -54,6 +54,7 @@ architecture Behavioral of top is
     signal s_en  : std_logic;
     -- Internal counter
     signal s_cnt : std_logic_vector(4 - 1 downto 0);
+    signal s_cnt_1 : std_logic_vector(16 - 1 downto 0);
 
 begin
 
@@ -100,11 +101,12 @@ begin
             reset   => BTNC,
             en_i    => s_en,
             cnt_up_i=> SW(0),
-            cnt_o   => s_cnt
+            cnt_o_1   => s_cnt_1
         );
 
     -- Display input value on LEDs
     LED(3 downto 0) <= s_cnt;
+    LED(15 downto 0) <= s_cnt_1;
 
     --------------------------------------------------------------------
     -- Instance (copy) of hex_7seg entity

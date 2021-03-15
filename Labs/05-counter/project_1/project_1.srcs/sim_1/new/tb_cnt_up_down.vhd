@@ -25,7 +25,7 @@ end entity tb_cnt_up_down;
 architecture testbench of tb_cnt_up_down is
 
     -- Number of bits for testbench counter
-    constant c_CNT_WIDTH         : natural := 5;
+    constant c_CNT_WIDTH         : natural := 4;
     constant c_CLK_100MHZ_PERIOD : time    := 10 ns;
 
     --Local signals
@@ -34,6 +34,7 @@ architecture testbench of tb_cnt_up_down is
     signal s_en         : std_logic;
     signal s_cnt_up     : std_logic;
     signal s_cnt        : std_logic_vector(c_CNT_WIDTH - 1 downto 0);
+    signal s_cnt_1      : std_logic_vector(16 - 1 downto 0);
 
 begin
     -- Connecting testbench signals with cnt_up_down entity
@@ -47,7 +48,8 @@ begin
             reset    => s_reset,
             en_i     => s_en,
             cnt_up_i => s_cnt_up,
-            cnt_o    => s_cnt
+            cnt_o    => s_cnt,
+            cnt_o_1    => s_cnt_1
         );
 
     --------------------------------------------------------------------

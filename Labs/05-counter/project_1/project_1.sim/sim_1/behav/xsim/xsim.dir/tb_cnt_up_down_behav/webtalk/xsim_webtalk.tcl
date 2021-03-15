@@ -1,6 +1,6 @@
 webtalk_init -webtalk_dir C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/
 webtalk_register_client -client project
-webtalk_add_data -client project -key date_generated -value "Mon Mar 15 22:32:17 2021" -context "software_version_and_target_device"
+webtalk_add_data -client project -key date_generated -value "Mon Mar 15 23:15:17 2021" -context "software_version_and_target_device"
 webtalk_add_data -client project -key product_version -value "XSIM v2020.2 (64-bit)" -context "software_version_and_target_device"
 webtalk_add_data -client project -key build_version -value "3064766" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_platform -value "WIN64" -context "software_version_and_target_device"
@@ -14,7 +14,7 @@ webtalk_add_data -client project -key target_package -value "not_applicable" -co
 webtalk_add_data -client project -key target_speed -value "not_applicable" -context "software_version_and_target_device"
 webtalk_add_data -client project -key random_id -value "0dd69a25-04c5-417e-a0b4-a3f8ed3ca42a" -context "software_version_and_target_device"
 webtalk_add_data -client project -key project_id -value "e8c2c481c5904d6dbbb4c11bb8f058c5" -context "software_version_and_target_device"
-webtalk_add_data -client project -key project_iteration -value "14" -context "software_version_and_target_device"
+webtalk_add_data -client project -key project_iteration -value "22" -context "software_version_and_target_device"
 webtalk_add_data -client project -key os_name -value "Windows Server 2016 or Windows 10" -context "user_environment"
 webtalk_add_data -client project -key os_release -value "major release  (build 9200)" -context "user_environment"
 webtalk_add_data -client project -key cpu_name -value "AMD FX(tm)-6300 Six-Core Processor             " -context "user_environment"
@@ -33,10 +33,10 @@ webtalk_add_data -client xsim -key Debug -value "typical" -context "xsim\\comman
 webtalk_add_data -client xsim -key Simulation_Image_Code -value "69 KB" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Simulation_Image_Data -value "2 KB" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Nets -value "0" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Total_Processes -value "5" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Total_Processes -value "6" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Total_Instances -value "6" -context "xsim\\usage"
 webtalk_add_data -client xsim -key Xilinx_HDL_Libraries_Used -value "secureip " -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Time -value "1.65_sec" -context "xsim\\usage"
-webtalk_add_data -client xsim -key Compiler_Memory -value "59928_KB" -context "xsim\\usage"
-webtalk_transmit -clientid 308385534 -regid "" -xml C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.xml -html C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.html -wdm C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
+webtalk_add_data -client xsim -key Compiler_Time -value "1.61_sec" -context "xsim\\usage"
+webtalk_add_data -client xsim -key Compiler_Memory -value "60204_KB" -context "xsim\\usage"
+webtalk_transmit -clientid 1384591476 -regid "" -xml C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.xml -html C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.html -wdm C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/05-counter/project_1/project_1.sim/sim_1/behav/xsim/xsim.dir/tb_cnt_up_down_behav/webtalk/usage_statistics_ext_xsim.wdm -intro "<H3>XSIM Usage Report</H3><BR>"
 webtalk_terminate
