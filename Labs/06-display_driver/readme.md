@@ -4,7 +4,7 @@
 
 ![Simulation screenshot:](/Labs/06-display_driver/images/timing_diagram.jpg)
 
-```
+```javascript
 {
   signal:
   [
