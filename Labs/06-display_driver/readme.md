@@ -163,10 +163,10 @@ begin
     --- WRITE YOUR CODE HERE
     p_data_gen : process
     begin
-        s_data0_i <= "0011";
-        s_data1_i <= "0001";
-        s_data2_i <= "0100";
-        s_data3_i <= "0010";
+        s_data0_i <= "0010";
+        s_data1_i <= "0100";
+        s_data2_i <= "0001";
+        s_data3_i <= "0011";
         s_dp_i    <= "1110"; 
         wait for 40ms;
         s_data0_i <= "0011";
@@ -178,6 +178,7 @@ begin
     end process p_data_gen;
 
 end architecture testbench;
+
 
 ```
 
@@ -286,4 +287,4 @@ end architecture Behavioral;
 
 ### Top layer image
 
-![Simulation screenshot:](/Labs/05-counter/images/top.jpg)
+![Simulation screenshot:](/Labs/06-display_driver/images/top_img.jpg)
