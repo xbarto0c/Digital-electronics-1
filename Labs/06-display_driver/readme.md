@@ -183,7 +183,7 @@ end architecture testbench;
 
 ### Simulation screenshot:
 
-![Simulation screenshot:](/Labs/06-display_driver/images/screenshot_simulation.jpg)
+![Simulation screenshot:](/Labs/06-display_driver/images/simulation_screenshot.jpg)
 
 ### Top layer VHDL architecture
 
