@@ -2,7 +2,7 @@
 
 ### Timing diagram for display number "3.142":
 
-![Simulation screenshot:](/Labs/06-display_driver/images/screenshot_simulation.jpg)
+![Simulation screenshot:](/Labs/06-display_driver/images/timing_diagram.jpg)
 
 ```
 {
@@ -183,7 +183,7 @@ end architecture testbench;
 
 ### Simulation screenshot:
 
-![Simulation screenshot:](/Labs/06-display_driver/images/screenshot_simulation-counter/images/screenshot_simulation.jpg)
+![Simulation screenshot:](/Labs/06-display_driver/images/screenshot_simulation.jpg)
 
 ### Top layer VHDL architecture
 
