@@ -192,7 +192,7 @@ end architecture testbench;
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 10.03.2021 14:09:23
+-- Create Date: 21.03.2021 00:02:03
 -- Design Name: 
 -- Module Name: top - Behavioral
 -- Project Name: 
@@ -223,10 +223,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity top is
     Port ( 
-           CLK100MHz : in STD_LOGIC;
+           CLK100MHZ : in STD_LOGIC;
            BTNC : in STD_LOGIC;
-           SW : in STD_LOGIC_VECTOR (1 - 1 downto 0);
-           LED : out STD_LOGIC_VECTOR (16 - 1 downto 0);
+           SW : in STD_LOGIC_VECTOR (16 - 1 downto 0);
            CA : out STD_LOGIC;
            CB : out STD_LOGIC;
            CC : out STD_LOGIC;
@@ -234,88 +233,54 @@ entity top is
            CE : out STD_LOGIC;
            CF : out STD_LOGIC;
            CG : out STD_LOGIC;
-           AN : out STD_LOGIC_VECTOR(8 - 1 downto 0)
-           );
+           DP : out STD_LOGIC;
+           AN : out STD_LOGIC_VECTOR (8 - 1 downto 0));
 end top;
 
 architecture Behavioral of top is
-
-    -- Internal clock enable
-    signal s_en  : std_logic;
-    -- Internal counter
-    signal s_cnt : std_logic_vector(4 - 1 downto 0);
-    signal s_cnt_1 : std_logic_vector(16 - 1 downto 0);
-
+    -- No internal signals
 begin
 
     --------------------------------------------------------------------
-    -- Instance (copy) of clock_enable entity
-    clk_en0 : entity work.clock_enable
-        generic map(
-            g_MAX => 100000000
-        )
+    -- Instance (copy) of driver_7seg_4digits entity
+    driver_seg_4 : entity work.driver_7seg_4digits
         port map(
-            clk   => CLK100MHz,
-            reset => BTNC,
-            ce_o  => s_en
-        );
-        
-    clk_en1 : entity work.clock_enable
-        generic map(
-            g_MAX => 1000000
-        )
-        port map(
-            clk   => CLK100MHz,
-            reset => BTNC,
-            ce_o  => s_en
-        );
-    bin_cnt0 : entity work.cnt_up_down
-        generic map(
-           g_CNT_WIDTH => 4
-        )
-        port map(
-            clk     => CLK100MHz,
-            reset   => BTNC,
-            en_i    => s_en,
-            cnt_up_i=> SW(0),
-            cnt_o   => s_cnt
-        );
-    --------------------------------------------------------------------
-    -- Instance (copy) of cnt_up_down entity
-    bin_cnt1 : entity work.cnt_up_down
-        generic map(
-           g_CNT_WIDTH => 16
-        )
-        port map(
-            clk     => CLK100MHz,
-            reset   => BTNC,
-            en_i    => s_en,
-            cnt_up_i=> SW(0),
-            cnt_o_1   => s_cnt_1
-        );
-
-    -- Display input value on LEDs
-    LED(3 downto 0) <= s_cnt;
-    LED(15 downto 0) <= s_cnt_1;
-
-    --------------------------------------------------------------------
-    -- Instance (copy) of hex_7seg entity
-    hex_7_seg : entity work.hex_7_seg
-        port map(
-            hex_i    => s_cnt,
+            clk        => CLK100MHZ,
+            reset      => BTNC,
+            data0_i(3) => SW(3),
+            data0_i(2) => SW(2),
+            data0_i(1) => SW(1),
+            data0_i(0) => SW(0),
+            --- WRITE YOUR CODE HERE
+            data1_i(3) => SW(7),
+            data1_i(2) => SW(6),
+            data1_i(1) => SW(5),
+            data1_i(0) => SW(4),
+            data2_i(3) => SW(11),
+            data2_i(2) => SW(10),
+            data2_i(1) => SW(9),
+            data2_i(0) => SW(8),
+            data3_i(3) => SW(15),
+            data3_i(2) => SW(14),
+            data3_i(1) => SW(13),
+            data3_i(0) => SW(12),
+            dp_i => "0111",
+            --- WRITE YOUR CODE HERE
             seg_o(6) => CA,
             seg_o(5) => CB,
             seg_o(4) => CC,
             seg_o(3) => CD,
             seg_o(2) => CE,
             seg_o(1) => CF,
-            seg_o(0) => CG
-        );
+            seg_o(0) => CG,
+            dp_o     => DP
+        );   
 
-    -- Connect one common anode to 3.3V
-    AN <= b"1111_1110";
+    -- Disconnect the top four digits of the 7-segment display
+    AN(7 downto 4) <= b"1111";
 
 end architecture Behavioral;
+
 
 ```
 
