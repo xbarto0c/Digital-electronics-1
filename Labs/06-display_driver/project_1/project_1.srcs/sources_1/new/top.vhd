@@ -76,6 +76,14 @@ begin
             data3_i(0) => SW(12),
             dp_i => "0111",
             --- WRITE YOUR CODE HERE
+            seg_o(6) => CA,
+            seg_o(5) => CB,
+            seg_o(4) => CC,
+            seg_o(3) => CD,
+            seg_o(2) => CE,
+            seg_o(1) => CF,
+            seg_o(0) => CG,
+            dp_o     => DP
         );   
 
     -- Disconnect the top four digits of the 7-segment display
