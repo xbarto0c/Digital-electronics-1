@@ -45,7 +45,7 @@ architecture Behavioral of d_latch is
 begin
     p_d_latch : process (d, arst, en)
     begin
-        if (arst = '1') then -- arst znamená aktivní v jedniècd, arstn by bylo v nule
+        if (arst = '1') then -- arst znamená aktivní v jednièce, arstn by bylo v nule
             q <= '0';
             q_bar <= '1';
         elsif (en = '1') then

@@ -86,6 +86,7 @@ begin
                 wait for 3ns;
                 assert(s_q = '0' and s_q_bar = '1')
                 report "Error wole" severity error; -- zde nebo v èasovanéém separátním procesu
+                --pøidat asserty a smazat Error wole !!!
                 --d sekvence
                 wait for 10ns;
                 s_d <= '1';
