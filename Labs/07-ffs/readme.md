@@ -121,7 +121,7 @@
             end process p_d_latch;
 ```
 
-### Simulatioin screenshot:
+### Simulation screenshot:
 
 ![Simulation screenshot:](/Labs/07-ffs/images/d_latch_sim.jpg)
 
@@ -541,6 +541,10 @@
 ### t_ff_rst simulation screenshot:
 
 ![Simulation screenshot:](/Labs/07-ffs/images/t_ff_rst_sim.jpg)
+
+## Part 3 - Shift register schematic:
+
+![Shift register schematic:](/Labs/07-ffs/images/shift_register.jpg)
 
 
 

@@ -1,0 +1,10 @@
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+Note: Stimulus process started
+Time: 0 ps  Iteration: 0  Process: /tb_d_ff_rst/p_d_ff  File: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd
+Error: Error at s_d = 1
+Time: 56 ns  Iteration: 0  Process: /tb_d_ff_rst/p_d_ff  File: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd
+Error: Error at s_d = 0
+Time: 76 ns  Iteration: 0  Process: /tb_d_ff_rst/p_d_ff  File: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd
+Note: Stimulus process finished
+Time: 176 ns  Iteration: 0  Process: /tb_d_ff_rst/p_d_ff  File: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd
