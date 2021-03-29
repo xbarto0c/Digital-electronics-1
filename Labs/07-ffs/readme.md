@@ -210,7 +210,7 @@
 ### d_ff_arst reset and stimulus processes:
 
 ```VHDL
-  p_reset : process --mohlo by být i v procesu latche, ne s hodinovým signálem
+		p_reset : process --mohlo by být i v procesu latche, ne s hodinovým signálem
             begin
                 s_arst <= '0';
                 wait for 58ns;
