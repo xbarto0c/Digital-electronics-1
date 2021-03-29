@@ -85,14 +85,15 @@ begin
                 
                 wait for 3ns;
                 assert(s_q = '0' and s_q_bar = '1')
-                report "Error wole" severity error; -- zde nebo v èasovanéém separátním procesu
-                --pøidat asserty a smazat Error wole !!!
+                report "Error at s_d = '1' " severity error;
                 --d sekvence
                 wait for 10ns;
                 s_d <= '1';
                 wait for 10ns;
                 s_d <= '0';
                 wait for 10ns;
+                assert(s_q = '1' and s_q_bar = '0')
+                report "Error at s_d = '0'" severity error;
                 s_d <= '1';
                 wait for 10ns;
                 s_d <= '0';

@@ -2,9 +2,13 @@
 2020.2
 Nov 18 2020
 09:47:47
-C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_arst.vhd,1616591265,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_jk_ff_rst.vhd,,,tb_d_ff_arst,,,,,,,,
-C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_latch.vhd,1616590989,vhdl,,,,tb_d_latch,,,,,,,,
-C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_jk_ff_rst.vhd,1616593218,vhdl,,,,tb_jk_ff_rst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_arst.vhd,1617051616,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_jk_ff_rst.vhd,,,tb_d_ff_arst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd,1617051498,vhdl,,,,tb_d_ff_rst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_latch.vhd,1617050960,vhdl,,,,tb_d_latch,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_jk_ff_rst.vhd,1617052242,vhdl,,,,tb_jk_ff_rst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_t_ff_rst.vhd,1617052019,vhdl,,,,tb_t_ff_rst,,,,,,,,
 C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sources_1/new/d_ff_arst.vhd,1616591442,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_arst.vhd,,,d_ff_arst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sources_1/new/d_ff_rst.vhd,1617048261,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_ff_rst.vhd,,,d_ff_rst,,,,,,,,
 C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sources_1/new/d_latch.vhd,1616590989,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_d_latch.vhd,,,d_latch,,,,,,,,
 C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sources_1/new/jk_ff_rst.vhd,1616592153,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_jk_ff_rst.vhd,,,jk_ff_rst,,,,,,,,
+C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sources_1/new/t_ff_rst.vhd,1617049247,vhdl,C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/07-ffs/project_1/project_1.srcs/sim_1/new/tb_t_ff_rst.vhd,,,t_ff_rst,,,,,,,,

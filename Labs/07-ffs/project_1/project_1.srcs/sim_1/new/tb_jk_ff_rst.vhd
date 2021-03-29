@@ -102,12 +102,14 @@ begin
                 
                 wait for 3ns;
                 assert(s_q = '0' and s_q_bar = '1')
-                report "Error wole" severity error; -- zde nebo v èasovanéém separátním procesu
-                --pøidat asserty a smazat Error wole !!!
+                report "Error at s_j = 0 and s_k = 0" severity error; -- zde nebo v èasovanéém separátním procesu
+
                 --d sekvence
                 wait for 13ns;
                 s_j <= '0';
                 s_k <= '1';
+                assert(s_q = '1' and s_q_bar = '0')
+                report "Error at s_j = 0 and s_k = 1" severity error;
                 wait for 10ns;
                 s_j <= '1';
                 s_k <= '0';
@@ -122,8 +124,6 @@ begin
 
                 
                 wait for 3ns;
-                assert(s_q = '0' and s_q_bar = '1')
-                report "Error wole" severity error;
                 --d sekvence
                 wait for 13ns;
                 s_j <= '0';
@@ -140,8 +140,6 @@ begin
                 wait for 10ns;
             
                 wait for 3ns;
-                assert(s_q = '0' and s_q_bar = '1')
-                report "Error wole" severity error;
                 
                 
                 report "Stimulus process finished" severity note;
