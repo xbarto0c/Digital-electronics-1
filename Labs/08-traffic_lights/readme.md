@@ -20,3 +20,9 @@
 ![Color settings table:](/Labs/08-traffic_lights/Images/RGB_wiring.jpg)
 \
 *Image taken from Nexys A7 datasheet*
+
+## Part 2: Traffic light controller:
+
+### State diagram:
+
+![State diagram:](/Labs/08-traffic_lights/Images/traffic_lights_state_diagram.jpg)
