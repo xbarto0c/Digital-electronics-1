@@ -32,6 +32,7 @@ architecture testbench of tb_tlc is
     signal s_reset      : std_logic;
     signal s_south      : std_logic_vector(3 - 1 downto 0);
     signal s_west       : std_logic_vector(3 - 1 downto 0);
+    signal s_sensors  : std_logic_vector(2 - 1 downto 0);
 
 begin
     -- Connecting testbench signals with tlc entity (Unit Under Test)
@@ -40,7 +41,8 @@ begin
             clk     => s_clk_100MHz,
             reset   => s_reset,
             south_o => s_south,
-            west_o  => s_west
+            west_o  => s_west,
+            sensors_i => s_sensors
         );
 
     --------------------------------------------------------------------
@@ -75,8 +77,14 @@ begin
     --------------------------------------------------------------------
     p_stimulus : process
     begin
-        -- No input data needed.
-        wait;
+        s_sensors <= "00";
+        wait for 800 ns;
+        s_sensors <= "01";
+        wait for 800 ns;
+        s_sensors <= "10";
+        wait for 800 ns;
+        s_sensors <= "11";
+        wait for 800 ns;
     end process p_stimulus;
 
 end architecture testbench;

@@ -185,3 +185,80 @@ end process p_output_fsm;
 ### State diagram:
 
 ![State diagram:](/Labs/08-traffic_lights/Images/smart_traffic_lights_state_diagram.jpg)
+
+### Listing of VHDL code of sequential process p_smart_traffic_fsm:
+
+```VHDL
+p_smart_traffic_fsm : process(clk) -- ovládání stavů                    
+begin                                                                   
+    s_sensors_i <= sensors_i;                                           
+    if rising_edge(clk) then                                            
+        if (reset = '1') then       -- Synchronous reset                
+            s_smart_state <= SOUTH_GO ;      -- Set initial state       
+            s_cnt   <= c_ZERO;      -- Clear all bits                   
+                                                                        
+        elsif (s_en = '1') then                                         
+            -- Every 250 ms, CASE checks the value of the s_smart_state 
+            -- variable and changes to the next state according         
+            -- to the delay value.                                      
+            case s_smart_state is                                       
+                                                                        
+                -- If the current state is SOUTH_GO, then wait 3 seconds
+                -- and move to the next GO_WAIT state.                  
+                when SOUTH_GO =>                                        
+                    -- Count up to c_DELAY_1SEC                         
+                    if (s_cnt < c_DELAY_3SEC) then                      
+                        s_cnt <= s_cnt + 1;                             
+                    elsif (s_sensors_i = "01" or s_sensors_i = "11") the
+                        -- Move to the next state                       
+                        s_smart_state <= SOUTH_WAIT;                    
+                        -- Reset local counter value                    
+                        s_cnt   <= c_ZERO;                              
+                    else                                                
+                        s_cnt <= c_ZERO;                                
+                    end if;                                             
+                                                                        
+                when SOUTH_WAIT =>                                      
+                                                                        
+                    if (s_cnt < c_DELAY_500mSEC) then                   
+                        s_cnt <= s_cnt + 1;                             
+                    else                                                
+                        -- Move to the next state                       
+                        s_smart_state <= WEST_GO;                       
+                        -- Reset local counter value                    
+                        s_cnt   <= c_ZERO;                              
+                    end if;                                             
+                                                                        
+                when WEST_GO =>                                         
+                                                                        
+                    if (s_cnt < c_DELAY_3SEC) then                      
+                        s_cnt <= s_cnt + 1;                             
+                    elsif (s_sensors_i = "10" or s_sensors_i = "11") the
+                        -- Move to the next state                       
+                        s_smart_state <= WEST_WAIT;                     
+                        -- Reset local counter value                    
+                        s_cnt   <= c_ZERO;                              
+                    else                                                
+                        s_cnt <= c_ZERO;                                
+                    end if;                                             
+                when WEST_WAIT =>                                       
+                                                                        
+                    if (s_cnt < c_DELAY_500mSEC) then                   
+                        s_cnt <= s_cnt + 1;                             
+                    else                                                
+                        -- Move to the next state                       
+                        s_smart_state <= SOUTH_GO;                      
+                        -- Reset local counter value                    
+                        s_cnt   <= c_ZERO;                              
+                    end if;                                             
+                -- It is a good programming practice to use the         
+                -- OTHERS clause, even if all CASE choices have         
+                -- been made.                                           
+                when others =>                                          
+                    s_smart_state <= SOUTH_GO;                          
+                                                                        
+            end case;                                                   
+        end if; -- Synchronous reset, procesy                           
+    end if; -- Rising edge                                              
+end process p_smart_traffic_fsm;                                        
+```
