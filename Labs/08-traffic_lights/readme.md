@@ -173,8 +173,8 @@ end process p_output_fsm;
 | **Output Colours [West-South]** | `red-green` | `red-green` | `red-green` | `red-green` | `red-yellow` | `red-yellow` | `red-yellow` | `red-yellow` |
 | **Next State** | `South_go` | `Sout_wait` | `Sout_go` | `Sout_wait` | `West_go` | `West_go` | `West_go` | `West_go` | `West_go` | `West_go` | `West_wait` | `West_wait` | `South_go` | `South_go` | `South_go` | `South_go` |
 
-| **Input Sensor [South-West]** | `00` | `01` | `10` | `11` | `00` | `01` | `10` | `11` | `00` | `01` | `10` | `11` | `00` | `01` | `10` | `11` |
-| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **Input Sensor [South-West]** | `00` | `01` | `10` | `11` | `00` | `01` | `10` | `11` |
+| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | **Clock** |  ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) | ![rising](Images/eq_uparrow.png) |
 | **Actual State** | `South_go` | `South_go` | `South_go` | `South_go` | `Sout_wait` | `Sout_wait` | `Sout_wait` | `Sout_wait` | `West_go` | `West_go` | `West_go` | `West_go` | `West_wait` | `West_wait` | `West_wait` | `West_wait` |
 | **Output Colours [West-South]** | `green-red` | `green-red` | `green-red` | `green-red` | `yellow-red` | `yellow-red` | `yellow-red` | `yellow-red` |
