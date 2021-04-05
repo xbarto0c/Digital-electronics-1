@@ -124,7 +124,7 @@
 ### Listing of VHDL code of combinatorial process p_output_fsm:
 
 ```VHDL
- p_output_fsm : process(s_state) -- ovládání výstupů   
+p_output_fsm : process(s_state) -- ovládání výstupů   
 begin                                                 
     case s_state is                                   
         when STOP1 =>                                 
