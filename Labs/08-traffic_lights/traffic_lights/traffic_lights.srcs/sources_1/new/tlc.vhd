@@ -197,14 +197,16 @@ begin
                     when SOUTH_GO =>
                         -- Count up to c_DELAY_1SEC
                         if (s_cnt < c_DELAY_3SEC) then
-                            s_cnt <= s_cnt + 1;
-                        elsif (s_sensors_i = "01" or s_sensors_i = "11") then
-                            -- Move to the next state
-                            s_smart_state <= SOUTH_WAIT;
-                            -- Reset local counter value
-                            s_cnt   <= c_ZERO;
+                            s_cnt <= s_cnt + 1;                                                      
                         else
-                            s_cnt <= c_ZERO;
+                            if (s_sensors_i = "01" or s_sensors_i = "11") then
+                                -- Move to the next state
+                                s_smart_state <= SOUTH_WAIT;
+                                -- Reset local counter value
+                                s_cnt   <= c_ZERO;                            
+                            else
+                                s_cnt <= c_ZERO;
+                            end if;
                         end if;
 
                     when SOUTH_WAIT =>
@@ -222,13 +224,15 @@ begin
                     
                         if (s_cnt < c_DELAY_3SEC) then
                             s_cnt <= s_cnt + 1;
-                        elsif (s_sensors_i = "10" or s_sensors_i = "11") then
-                            -- Move to the next state
-                            s_smart_state <= WEST_WAIT;
-                            -- Reset local counter value
-                            s_cnt   <= c_ZERO;
                         else
-                            s_cnt <= c_ZERO;
+                            if (s_sensors_i = "10" or s_sensors_i = "11") then
+                                -- Move to the next state
+                                s_smart_state <= WEST_WAIT;
+                                -- Reset local counter value
+                                s_cnt   <= c_ZERO;
+                            else
+                                s_cnt <= c_ZERO;
+                            end if;
                         end if;
                     when WEST_WAIT =>
                     
