@@ -26,3 +26,7 @@
 ### State diagram:
 
 ![State diagram:](/Labs/08-traffic_lights/Images/traffic_lights_state_diagram.jpg)
+
+### Simulation screenshot:
+
+![Simulation screenshot:](/Labs/08-traffic_lights/Images/simulation_screenshot.jpg)
