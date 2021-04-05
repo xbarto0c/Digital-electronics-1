@@ -17,4 +17,4 @@
 
 ### Color settings table:
 
-![Color settings table:](/Labs/08-trafiic_lights/Images/RGB_wiring.jpg)
+![Color settings table:](/Labs/08-traffic_lights/Images/RGB_wiring.jpg)
