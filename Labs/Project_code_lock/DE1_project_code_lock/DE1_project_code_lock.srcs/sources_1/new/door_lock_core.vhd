@@ -45,13 +45,19 @@ architecture Behavioral of door_lock_core is
     type   t_state is (IDLE, D_OPEN,  ALARM,
                        ENTRY_PASSWORD, WRONG_PASSWORD, ENTRY_PASSWORD_NEW, NEW_PASSWORD); -- definice stavù
     -- Define the signal that uses different states
-    signal   s_state      : t_state; -- signál používající stavy z t_state
+    signal            s_state           : t_state; -- signál používající stavy z t_state
     -- Internal clock enable
-    signal   s_en         : std_logic; -- dìlení signálu
+    signal            s_en              : std_logic; -- dìlení signálu
     -- Local delay counter
-    signal   s_cnt        : unsigned(11 - 1 downto 0);
+    signal            s_cnt             : unsigned(11 - 1 downto 0);
       
-    signal   display_o :  std_logic_vector(16 - 1 downto 0);
+    signal            display_o         :  std_logic_vector(16 - 1 downto 0);
+    shared variable   display_pos       : std_logic_vector(2 - 1 downto 0);
+    shared variable   current_password  : std_logic_vector(16 - 1 downto 0);
+    shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
+    shared variable   set_new_password  : std_logic;
+    shared variable   counter           : unsigned (2 - 1 downto 0);
+    shared variable   RGB_LED_ON        : integer;
 
     -- Specific values for local counter
     constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; -- èekání
@@ -154,11 +160,31 @@ begin
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
                             s_cnt <= s_cnt + 1;
-                            if(entry_password = current_password) then
-                                s_state <= D_OPEN;
-                            else (entry password /= current_password) then
-                                s_state <= WRONG_PASSWORD;
-                            end if;
+                            if (btn_i /= "0000" and btn_i /= "1010" and btn_i /= "1100") then 
+                                case display_pos is
+                                    when "00" =>
+                                        display_o(3 downto 0) <= btn_i;
+                                        entered_password(15 downto 12) := btn_i;
+                                        display_pos := "01";
+                                    when "01" =>
+                                        display_o(7 downto 4) <= btn_i;
+                                        entered_password(11 downto 8) := btn_i;
+                                        display_pos := "10";
+                                    when "10" =>
+                                        display_o(11 downto 8) <= btn_i;
+                                        entered_password(7 downto 4) := btn_i;
+                                        display_pos := "11";
+                                    when "11" =>
+                                        display_o(15 downto 12) <= btn_i;
+                                        entered_password(3 downto 0) := btn_i;
+                                        if (entered_password = current_password) then
+                                            s_state <= D_OPEN;
+                                        elsif (entered_password /= current_password) then
+                                            s_state <= WRONG_PASSWORD;
+                                        end if;
+                                        display_pos := "00";
+                                end case;
+                           end if;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
@@ -174,7 +200,7 @@ begin
                             -- Move to the next state
                             if (counter > 2) then 
                                 s_state <= ALARM;
-                            elsif (new_password = '1') then
+                            elsif (set_new_password = '1') then
                                 s_state <= ENTRY_PASSWORD_NEW;
                             else
                                 s_state <= ENTRY_PASSWORD;
@@ -187,11 +213,31 @@ begin
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
                             s_cnt <= s_cnt + 1;
-                            if(entry_password = current_password) then
-                                s_state <= NEW_PASSWORD;
-                            else (entry password /= current_password) then
-                                s_state <= WRONG_PASSWORD;
-                            end if;
+                            if (btn_i /= "0000" and btn_i /= "1010" and btn_i /= "1100") then
+                                case display_pos is
+                                    when "00" =>
+                                        display_o(3 downto 0) <= btn_i;
+                                        entered_password(15 downto 12) := btn_i;
+                                        display_pos := "01";
+                                    when "01" =>
+                                        display_o(7 downto 4) <= btn_i;
+                                        entered_password(11 downto 8) := btn_i;
+                                        display_pos := "01";
+                                    when "10" =>
+                                        display_o(11 downto 8) <= btn_i;
+                                        entered_password(7 downto 4) := btn_i;
+                                        display_pos := "01";
+                                    when "11" =>
+                                        display_o(15 downto 12) <= btn_i;
+                                        entered_password(3 downto 0) := btn_i;
+                                        if (entered_password = current_password) then
+                                            s_state <= NEW_PASSWORD;
+                                        elsif (entered_password /= current_password) then
+                                            s_state <= WRONG_PASSWORD;
+                                        end if;
+                                        display_pos := "01";
+                                end case;
+                           end if;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
@@ -203,6 +249,7 @@ begin
                     -- been made. 
                     when NEW_PASSWORD =>
                             -- Move to the next state
+                            current_password := entered_password;
                             s_state <= D_OPEN;
                             -- Reset local counter value
                     when others => 
@@ -211,121 +258,39 @@ begin
                 end case;
             end if; -- Synchronous reset
         end if; -- Rising edge
-    end process p_traffic_fsm;
+    end process p_door_lock_core;
     
-    p_smart_traffic_fsm : process(clk) -- ovládání stavù
-    begin
-        s_sensors_i <= sensors_i;
-        if rising_edge(clk) then
-            if (reset = '1') then       -- Synchronous reset
-                s_smart_state <= SOUTH_GO ;      -- Set initial state
-                s_cnt   <= c_ZERO;      -- Clear all bits
-
-            elsif (s_en = '1') then
-                -- Every 250 ms, CASE checks the value of the s_smart_state 
-                -- variable and changes to the next state according 
-                -- to the delay value.
-                case s_smart_state is
-
-                    -- If the current state is SOUTH_GO, then wait 3 seconds
-                    -- and move to the next GO_WAIT state.
-                    when SOUTH_GO =>
-                        -- Count up to c_DELAY_1SEC
-                        if (s_cnt < c_DELAY_3SEC) then
-                            s_cnt <= s_cnt + 1;                                                      
-                        else
-                            if (s_sensors_i = "01" or s_sensors_i = "11") then
-                                -- Move to the next state
-                                s_smart_state <= SOUTH_WAIT;
-                                -- Reset local counter value
-                                s_cnt   <= c_ZERO;                            
-                            else
-                                s_cnt <= c_ZERO;
-                            end if;
-                        end if;
-
-                    when SOUTH_WAIT =>
-                    
-                        if (s_cnt < c_DELAY_500mSEC) then
-                            s_cnt <= s_cnt + 1;
-                        else
-                            -- Move to the next state
-                            s_smart_state <= WEST_GO;
-                            -- Reset local counter value
-                            s_cnt   <= c_ZERO;
-                        end if;
-                        
-                    when WEST_GO =>
-                    
-                        if (s_cnt < c_DELAY_3SEC) then
-                            s_cnt <= s_cnt + 1;
-                        else
-                            if (s_sensors_i = "10" or s_sensors_i = "11") then
-                                -- Move to the next state
-                                s_smart_state <= WEST_WAIT;
-                                -- Reset local counter value
-                                s_cnt   <= c_ZERO;
-                            else
-                                s_cnt <= c_ZERO;
-                            end if;
-                        end if;
-                    when WEST_WAIT =>
-                    
-                        if (s_cnt < c_DELAY_500mSEC) then
-                            s_cnt <= s_cnt + 1;
-                        else
-                            -- Move to the next state
-                            s_smart_state <= SOUTH_GO;
-                            -- Reset local counter value
-                            s_cnt   <= c_ZERO;
-                        end if;
-                    -- It is a good programming practice to use the 
-                    -- OTHERS clause, even if all CASE choices have 
-                    -- been made. 
-                    when others =>
-                        s_smart_state <= SOUTH_GO;
-
-                end case;
-            end if; -- Synchronous reset, procesy
-        end if; -- Rising edge
-    end process p_smart_traffic_fsm;
-
-    --------------------------------------------------------------------
-    -- p_output_fsm:
-    -- The combinatorial process is sensitive to state changes, and sets
-    -- the output signals accordingly. This is an example of a Moore 
-    -- state machine because the output is set based on the active state.
-    --------------------------------------------------------------------
+    
     p_output_fsm : process(s_state) -- ovládání výstupù
     begin
         case s_state is
-            when STOP1 =>
-                south_o <= "100";   -- Red (RGB = 100)
-                west_o  <= "100";   -- Red (RGB = 100)
+            when IDLE =>
+                RGB_o <= "001";   -- Red (RGB = 100)
                 
-            when WEST_GO =>
-                south_o <= "100";   -- Red (RGB = 100)
-                west_o  <= "010";   -- Green (RGB = 010)
+            when WRONG_PASSWORD =>
+            if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
+                s_cnt <= s_cnt + 1;
+            else
+                if(RGB_LED_ON = 1) then
+                    RGB_o <= "111";   -- RED (RGB = 100)
+                    RGB_LED_ON := 0;
+                else
+                    RGB_o <= "011";
+                    RGB_LED_ON := 1;
+                end if;
+                s_cnt <= c_ZERO;
+            end if;    
+            when ALARM =>
+                RGB_o <= "011";   -- Blue (RGB = 001)
+                PIEZZO_o <= "01";
+          
+            when D_OPEN =>
+                RGB_o <= "101";   -- Blue (RGB = 001)
+                PIEZZO_o <= "10";
                 
-            when WEST_WAIT =>
-                south_o <= "100";   -- Red (RGB = 100)
-                west_o  <= "110";   -- Yellow (RGB = 110)
-                
-            when STOP2 =>
-                south_o <= "100";   -- Red (RGB = 100)
-                west_o  <= "100";   -- Red (RGB = 100)
-                
-            when SOUTH_GO =>
-                south_o <= "010";   -- Green (RGB = 010)
-                west_o  <= "100";   -- Red (RGB = 100)
-                
-            when SOUTH_WAIT =>
-                south_o <= "110";   -- Yellow (RGB = 110)
-                west_o  <= "100";   -- Red (RGB = 100)
-
             when others =>
-                south_o <= "100";   -- Red (RGB = 100)
-                west_o  <= "100";   -- Red (RGB = 100)
+                RGB_o <= "111";   -- Blue (RGB = 001)
+                PIEZZO_o <= "00";
         end case;
     end process p_output_fsm;
 
