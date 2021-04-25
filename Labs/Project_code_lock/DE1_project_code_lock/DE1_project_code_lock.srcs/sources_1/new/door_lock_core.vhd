@@ -266,6 +266,12 @@ begin
         case s_state is
             when IDLE =>
                 RGB_o <= "001";   -- Red (RGB = 100)
+                if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
+                    s_cnt <= s_cnt + 1;
+                    display_o <= "1011101110111011";
+                else
+                    display_o <= "1010101010101010";
+                end if;
                 
             when WRONG_PASSWORD =>
             if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
