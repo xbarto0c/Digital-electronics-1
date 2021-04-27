@@ -95,11 +95,7 @@ begin
         );
    --piezzo0 : entity work.piezzo_driver
     --    port map(
-    --        data0_i => display_o(3 downto 0),
-   --         data1_i => display_o(7 downto 4),
-    --        data2_i => display_o(11 downto 8),
-    --        data3_i => display_o(15 downto 12),
-    --        dp_i    => "1111",
+    --        data0_i => piezzo_o,
     --        clk     => clk, 
     --        reset   => reset
     --    );
