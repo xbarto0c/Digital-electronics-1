@@ -35,6 +35,18 @@ entity top is
     Port ( 
            CLK100MHZ : in  STD_LOGIC;
            BTNC      : in  STD_LOGIC;
+           PB1       : in  STD_LOGIC;
+           PB2       : in  STD_LOGIC;
+           PB3       : in  STD_LOGIC;
+           PB4       : in  STD_LOGIC;
+           PB5       : in  STD_LOGIC;
+           PB6       : in  STD_LOGIC;
+           PB7       : in  STD_LOGIC;
+           PB8       : in  STD_LOGIC;
+           PB9       : in  STD_LOGIC;
+           PB0       : in  STD_LOGIC;
+           PBC       : in  STD_LOGIC;
+           PBH       : in  STD_LOGIC;
            RGB       : out STD_LOGIC_VECTOR (3 - 1 downto 0);
            BTN       : in  STD_LOGIC_VECTOR (4 - 1 downto 0);
            CA        : out STD_LOGIC;
@@ -52,6 +64,7 @@ end top;
 
 architecture Behavioral of top is
     signal display_o : std_logic_vector(16 - 1 downto 0);
+    signal btn_i     : std_logic_vector(4  - 1 downto 0);
 begin
 
     --------------------------------------------------------------------
@@ -83,12 +96,28 @@ begin
         port map(
             clk        => CLK100MHZ,
             reset      => BTNC,
-            RGB_o(2) => RGB(2),
-            RGB_o(1) => RGB(1),
-            RGB_o(0) => RGB(0),
-            btn_i    => BTN,
-            relay_o  => REL
+            RGB_o(2)   => RGB(2),
+            RGB_o(1)   => RGB(1),
+            RGB_o(0)   => RGB(0),
+            relay_o    => REL,
+            btn_i      => btn_i
 
         );   
+    keyboard_decoder0 : entity work.keyboard_decoder
+        port map(
+            decoder_out => btn_i,
+            btn_1       => PB1,
+            btn_2       => PB2,
+            btn_3       => PB3,
+            btn_4       => PB4,
+            btn_5       => PB5,
+            btn_6       => PB6,
+            btn_7       => PB7,
+            btn_8       => PB8,
+            btn_9       => PB9,
+            btn_0       => PB0,
+            btn_star    => PBC,
+            btn_hash    => PBH
+        );
 
 end architecture Behavioral;

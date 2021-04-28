@@ -88,19 +88,55 @@ begin
     p_stimulus : process
     begin
         report "Stimulus process started" severity note;
-        
-        s_btn_i  <= "0000"; -- 0
+        wait for 1 us;
+        s_btn_i  <= "1010"; -- 0
+        wait for 10 ns;
+        s_btn_i  <= "0010";
+        wait for 10 ns;
         s_btn_i  <= "0001"; -- 1
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0010"; -- 2
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0011"; -- 3
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0100"; -- 4
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0101"; -- 5
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0110"; -- 6
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "0111"; -- 7
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "1000"; -- 8
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "1001"; -- 9
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "1010"; -- #
+        wait for 10 ns;
+        s_btn_i  <= "1101";
+        wait for 10 ns;
         s_btn_i  <= "1100"; -- *
+        wait for 10 ns;
+        s_btn_i  <= "1001";
+        wait for 10 ns;
 
         report "Stimulus process finished" severity note;
         wait;

@@ -32,7 +32,7 @@ entity door_lock_core is
         
         RGB_o     : out std_logic_vector( 3 - 1 downto 0);
         piezzo_o  : out std_logic_vector( 2 - 1 downto 0);
-        relay_o   : out std_logic  
+        relay_o   : out std_logic
     );
 end entity door_lock_core;
 
@@ -49,10 +49,10 @@ architecture Behavioral of door_lock_core is
     -- Internal clock enable
     signal            s_en              : std_logic; -- dìlení signálu
     -- Local delay counter
-    signal            s_cnt             : unsigned(11 - 1 downto 0);
+    shared variable   s_cnt             : integer;
       
     signal            display_o         : std_logic_vector(16 - 1 downto 0);
-    shared variable   display_pos       : std_logic_vector(2 - 1 downto 0);
+    shared variable   display_pos       : integer;
     shared variable   current_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   set_new_password  : std_logic;
@@ -60,11 +60,11 @@ architecture Behavioral of door_lock_core is
     shared variable   RGB_LED_ON        : integer;
 
     -- Specific values for local counter
-    constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; -- èekání
-    constant c_DOOR_OPEN_TIME_3SEC               : unsigned(11 - 1 downto 0) := b"000_0000_1100"; -- èekání
-    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"100_1011_0000"; -- èekání
-    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : unsigned(11 - 1 downto 0) := b"000_0000_0100"; -- èekání
-    constant c_ZERO                              : unsigned(11 - 1 downto 0) := b"000_0000_0000";
+    constant c_ENTRY_TIME_20SEC                  : integer := 80;--b"000_0101_0000"; -- èekání
+    constant c_DOOR_OPEN_TIME_3SEC               : integer := 80;--b"000_0000_1100"; -- èekání
+    constant c_ALARM_ENGAGED_TIME_300SEC         : integer := 80;--b"100_1011_0000"; -- èekání
+    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : integer := 80;--b"000_0000_0100"; -- èekání
+    constant c_ZERO                              : integer := 80;--b"000_0000_0000";
 
 begin
 
@@ -76,13 +76,21 @@ begin
     -- JUST FOR SHORTER/FASTER SIMULATION
    clk_en0 : entity work.clock_enable
        generic map(
-                   g_MAX => 4       -- g_MAX = 250 ms / (1/100 MHz)
+                   g_MAX => 10       -- g_MAX = 250 ms / (1/100 MHz), bylo zde 25 000 000, vrátit sem / okomentovat !!!
         )
         port map(
             clk   => clk,
             reset => reset,
             ce_o  => s_en
         );
+   --cnt_up0 : entity work.cnt_up_down
+        --port map(
+            --clk      => clk,   
+            --reset    => reset,
+            --en_i     => '1',
+            --cnt_up_i => '1',
+            --cnt_o    => s_cnt
+        --);
    driver_7seg_4digits0 : entity work.driver_7seg_4digits
         port map(
             data0_i => display_o(3 downto 0),
@@ -107,21 +115,20 @@ begin
     --------------------------------------------------------------------
     p_door_lock_core : process(clk) -- ovládání stavù
     begin
+        if s_en = '1' then
+            s_cnt := s_cnt + 1;
+        end if;
         if rising_edge(clk) then
             if (reset = '1') then       -- Synchronous reset
                 s_state <= IDLE ;      -- Set initial state
-                s_cnt   <= c_ZERO;      -- Clear all bits
+                s_cnt   := c_ZERO;      -- Clear all bits
                 counter := 0;
                 RGB_LED_ON := 0;
-                current_password := "0000";
-                display_pos := "00";
-                s_en        <= '0';
+                current_password := "0000000000000000";
+                display_pos := 0;
                 display_o   <= "1101110111011101";
 
-            elsif (s_en = '1') then
-                -- Every 250 ms, CASE checks the value of the s_state 
-                -- variable and changes to the next state according 
-                -- to the delay value.
+            else
                 case s_state is
 
                     -- If the current state is STOP1, then wait 1 sec
@@ -140,43 +147,40 @@ begin
                     when D_OPEN =>
                     
                         if (s_cnt < c_DOOR_OPEN_TIME_3SEC) then
-                            s_cnt <= s_cnt + 1;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   <= c_ZERO;
+                            s_cnt   := c_ZERO;
                         end if;
                         
                     when ALARM =>
                     
                         if (s_cnt < c_ALARM_ENGAGED_TIME_300SEC) then
-                            s_cnt <= s_cnt + 1;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   <= c_ZERO;
+                            s_cnt   := c_ZERO;
                         end if;
                     when ENTRY_PASSWORD =>
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
-                            s_cnt <= s_cnt + 1;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then 
                                 case display_pos is
-                                    when "00" =>
+                                    when 0 =>
                                         display_o(3 downto 0) <= btn_i;
                                         entered_password(15 downto 12) := btn_i;
-                                        display_pos := "01";
-                                    when "01" =>
+                                        display_pos := 1;
+                                    when 1 =>
                                         display_o(7 downto 4) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
-                                        display_pos := "10";
-                                    when "10" =>
+                                        display_pos := 2;
+                                    when 2 =>
                                         display_o(11 downto 8) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
-                                        display_pos := "11";
-                                    when "11" =>
+                                        display_pos := 3;
+                                    when others =>
                                         display_o(15 downto 12) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
@@ -185,20 +189,19 @@ begin
                                             s_state <= WRONG_PASSWORD;
                                         end if;
                                         set_new_password := '0';
-                                        display_pos := "00";
+                                        display_pos := 0;
                                 end case;
                            end if;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   <= c_ZERO;
+                            s_cnt   := c_ZERO;
                         end if;
                         
                     when WRONG_PASSWORD =>
                     
                         if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                            s_cnt <= s_cnt + 1;
                         else
                             if (counter > 2) then 
                                 s_state <= ALARM;
@@ -209,29 +212,28 @@ begin
                             else
                                 s_state <= ENTRY_PASSWORD;
                                 counter := counter + 1;
-                                s_cnt   <= c_ZERO;
+                                s_cnt   := c_ZERO;
                             end if;
                         end if;   
                         
                     when ENTRY_PASSWORD_NEW =>
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
-                            s_cnt <= s_cnt + 1;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
                                 case display_pos is
-                                    when "00" =>
+                                    when 0 =>
                                         display_o(3 downto 0) <= btn_i;
                                         entered_password(15 downto 12) := btn_i;
-                                        display_pos := "01";
-                                    when "01" =>
+                                        display_pos := 1;
+                                    when 1 =>
                                         display_o(7 downto 4) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
-                                        display_pos := "10";
-                                    when "10" =>
+                                        display_pos := 2;
+                                    when 2 =>
                                         display_o(11 downto 8) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
-                                        display_pos := "11";
-                                    when "11" =>
+                                        display_pos := 3;
+                                    when others =>
                                         display_o(15 downto 12) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
@@ -240,14 +242,14 @@ begin
                                             s_state <= WRONG_PASSWORD;
                                         end if;
                                         set_new_password := '1';
-                                        display_pos := "00";
-                                end case;
+                                        display_pos := 0;
+                                end case;                                        
                            end if;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   <= c_ZERO;
+                            s_cnt   := c_ZERO;
                         end if;
                     -- It is a good programming practice to use the 
                     -- OTHERS clause, even if all CASE choices have 
@@ -272,16 +274,13 @@ begin
             when IDLE =>
                 RGB_o <= "001";   -- Red (RGB = 100)
                 if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                    s_cnt <= s_cnt + 1;
                     display_o <= "1011101110111011";
                 else
                     display_o <= "1010101010101010";
                 end if;
                 
             when WRONG_PASSWORD =>
-            if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                s_cnt <= s_cnt + 1;
-            else
+            if (s_cnt > c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
                 if(RGB_LED_ON = 1) then
                     RGB_o <= "111";   -- RED (RGB = 100)
                     RGB_LED_ON := 0;
@@ -289,7 +288,7 @@ begin
                     RGB_o <= "011";
                     RGB_LED_ON := 1;
                 end if;
-                s_cnt <= c_ZERO;
+                s_cnt := c_ZERO;
             end if;    
             when ALARM =>
                 RGB_o <= "011";   -- Blue (RGB = 001)
