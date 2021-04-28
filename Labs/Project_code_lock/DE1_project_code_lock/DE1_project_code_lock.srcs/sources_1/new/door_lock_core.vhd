@@ -49,7 +49,7 @@ architecture Behavioral of door_lock_core is
     -- Internal clock enable
     signal            s_en              : std_logic; -- dìlení signálu
     -- Local delay counter
-    shared variable   s_cnt             : integer;
+    signal            s_cnt             : unsigned(11 - 1 downto 0) := b"000_0000_0000";
       
     signal            display_o         : std_logic_vector(16 - 1 downto 0);
     shared variable   display_pos       : integer;
@@ -60,11 +60,11 @@ architecture Behavioral of door_lock_core is
     shared variable   RGB_LED_ON        : integer;
 
     -- Specific values for local counter
-    constant c_ENTRY_TIME_20SEC                  : integer := 80;--b"000_0101_0000"; -- èekání
-    constant c_DOOR_OPEN_TIME_3SEC               : integer := 80;--b"000_0000_1100"; -- èekání
-    constant c_ALARM_ENGAGED_TIME_300SEC         : integer := 80;--b"100_1011_0000"; -- èekání
-    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : integer := 80;--b"000_0000_0100"; -- èekání
-    constant c_ZERO                              : integer := 80;--b"000_0000_0000";
+    constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; -- èekání
+    constant c_DOOR_OPEN_TIME_3SEC               : unsigned(11 - 1 downto 0) := b"000_0000_1100"; -- èekání
+    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"100_1011_0000"; -- èekání
+    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : unsigned(11 - 1 downto 0) := b"000_0000_0100"; -- èekání
+    constant c_ZERO                              : unsigned(11 - 1 downto 0) := b"000_0000_0000";
 
 begin
 
@@ -116,12 +116,12 @@ begin
     p_door_lock_core : process(clk) -- ovládání stavù
     begin
         if s_en = '1' then
-            s_cnt := s_cnt + 1;
+            s_cnt <= s_cnt + 1;
         end if;
         if rising_edge(clk) then
             if (reset = '1') then       -- Synchronous reset
                 s_state <= IDLE ;      -- Set initial state
-                s_cnt   := c_ZERO;      -- Clear all bits
+                s_cnt   <= c_ZERO;      -- Clear all bits
                 counter := 0;
                 RGB_LED_ON := 0;
                 current_password := "0000000000000000";
@@ -151,7 +151,7 @@ begin
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   := c_ZERO;
+                            s_cnt   <= c_ZERO;
                         end if;
                         
                     when ALARM =>
@@ -161,7 +161,7 @@ begin
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   := c_ZERO;
+                            s_cnt   <= c_ZERO;
                         end if;
                     when ENTRY_PASSWORD =>
                     
@@ -196,7 +196,7 @@ begin
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   := c_ZERO;
+                            s_cnt   <= c_ZERO;
                         end if;
                         
                     when WRONG_PASSWORD =>
@@ -212,7 +212,7 @@ begin
                             else
                                 s_state <= ENTRY_PASSWORD;
                                 counter := counter + 1;
-                                s_cnt   := c_ZERO;
+                                s_cnt   <= c_ZERO;
                             end if;
                         end if;   
                         
@@ -249,7 +249,7 @@ begin
                             -- Move to the next state
                             s_state <= IDLE;
                             -- Reset local counter value
-                            s_cnt   := c_ZERO;
+                            s_cnt   <= c_ZERO;
                         end if;
                     -- It is a good programming practice to use the 
                     -- OTHERS clause, even if all CASE choices have 
@@ -288,7 +288,7 @@ begin
                     RGB_o <= "011";
                     RGB_LED_ON := 1;
                 end if;
-                s_cnt := c_ZERO;
+                s_cnt <= c_ZERO;
             end if;    
             when ALARM =>
                 RGB_o <= "011";   -- Blue (RGB = 001)
