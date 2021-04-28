@@ -56,7 +56,7 @@ architecture Behavioral of door_lock_core is
     shared variable   current_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   set_new_password  : std_logic;
-    shared variable   counter           : unsigned (2 - 1 downto 0);
+    shared variable   counter           : integer;
     shared variable   RGB_LED_ON        : integer;
 
     -- Specific values for local counter
@@ -111,6 +111,12 @@ begin
             if (reset = '1') then       -- Synchronous reset
                 s_state <= IDLE ;      -- Set initial state
                 s_cnt   <= c_ZERO;      -- Clear all bits
+                counter := 0;
+                RGB_LED_ON := 0;
+                current_password := "0000";
+                display_pos := "00";
+                s_en        <= '0';
+                display_o   <= "1101110111011101";
 
             elsif (s_en = '1') then
                 -- Every 250 ms, CASE checks the value of the s_state 
@@ -156,7 +162,7 @@ begin
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
                             s_cnt <= s_cnt + 1;
-                            if (btn_i /= "0000" and btn_i /= "1010" and btn_i /= "1100") then 
+                            if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then 
                                 case display_pos is
                                     when "00" =>
                                         display_o(3 downto 0) <= btn_i;
@@ -178,6 +184,7 @@ begin
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
                                         end if;
+                                        set_new_password := '0';
                                         display_pos := "00";
                                 end case;
                            end if;
@@ -193,14 +200,15 @@ begin
                         if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
                             s_cnt <= s_cnt + 1;
                         else
-                            -- Move to the next state
                             if (counter > 2) then 
                                 s_state <= ALARM;
+                                counter := 0;
                             elsif (set_new_password = '1') then
                                 s_state <= ENTRY_PASSWORD_NEW;
+                                counter := counter + 1;
                             else
                                 s_state <= ENTRY_PASSWORD;
-                                -- Reset local counter value
+                                counter := counter + 1;
                                 s_cnt   <= c_ZERO;
                             end if;
                         end if;   
@@ -209,7 +217,7 @@ begin
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
                             s_cnt <= s_cnt + 1;
-                            if (btn_i /= "0000" and btn_i /= "1010" and btn_i /= "1100") then
+                            if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
                                 case display_pos is
                                     when "00" =>
                                         display_o(3 downto 0) <= btn_i;
@@ -218,11 +226,11 @@ begin
                                     when "01" =>
                                         display_o(7 downto 4) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
-                                        display_pos := "01";
+                                        display_pos := "10";
                                     when "10" =>
                                         display_o(11 downto 8) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
-                                        display_pos := "01";
+                                        display_pos := "11";
                                     when "11" =>
                                         display_o(15 downto 12) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
@@ -231,7 +239,8 @@ begin
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
                                         end if;
-                                        display_pos := "01";
+                                        set_new_password := '1';
+                                        display_pos := "00";
                                 end case;
                            end if;
                         else

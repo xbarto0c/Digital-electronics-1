@@ -1,10 +1,10 @@
-
+----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
 -- 
--- Create Date: 03.03.2021 13:17:36
+-- Create Date: 03.03.2021 13:14:00
 -- Design Name: 
--- Module Name: segment - Behavioral
+-- Module Name: segment2 - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -31,19 +31,24 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity hex_7_seg is
-    port(
-        hex_i           : in  std_logic_vector(4 - 1 downto 0);
-        
-        seg_o           : out std_logic_vector(7 - 1 downto 0)       -- B is greater than A
-    );
-end entity hex_7_seg;
+entity segment2 is
+    Port ( 
+           hex_i : in STD_LOGIC_VECTOR (4 - 1  downto 0);
+           seg_o : out STD_LOGIC_VECTOR (7 - 1  downto 0)
+          );
+end segment2;
 
-architecture Behavioral of hex_7_seg is
-begin
+architecture Behavioral of segment2 is
 
-p_hex_7_seg : process(hex_i)
 begin
+    --------------------------------------------------------------------
+    -- p_7seg_decoder:
+    -- A combinational process for 7-segment display decoder. 
+    -- Any time "hex_i" is changed, the process is "executed".
+    -- Output pin seg_o(6) corresponds to segment A, seg_o(5) to B, etc.
+    --------------------------------------------------------------------
+    segment2 : process(hex_i)
+    begin
         case hex_i is
             when "0000" =>
                 seg_o <= "0000001";     -- 0
@@ -66,19 +71,18 @@ begin
             when "1001" =>
                 seg_o <= "0000100";     -- 9
             when "1010" =>
-                seg_o <= "0001000";     -- A
+                seg_o <= "1111110";     -- (-)
             when "1011" =>
-                seg_o <= "1100000";     -- B
+                seg_o <= "1111111";     -- 
             when "1100" =>
                 seg_o <= "0110001";     -- C
             when "1101" =>
-                seg_o <= "1000010";     -- D 
+                seg_o <= "1000010";     -- D            
             when "1110" =>
                 seg_o <= "0110000";     -- E
             when others =>
                 seg_o <= "0111000";     -- F
         end case;
-    end process p_hex_7_seg;
-
+    end process segment2;
 
 end Behavioral;
