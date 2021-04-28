@@ -51,7 +51,7 @@ architecture Behavioral of door_lock_core is
     -- Local delay counter
     signal            s_cnt             : unsigned(11 - 1 downto 0);
       
-    signal            display_o         :  std_logic_vector(16 - 1 downto 0);
+    signal            display_o         : std_logic_vector(16 - 1 downto 0);
     shared variable   display_pos       : std_logic_vector(2 - 1 downto 0);
     shared variable   current_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
@@ -289,10 +289,12 @@ begin
             when D_OPEN =>
                 RGB_o <= "101";   -- Blue (RGB = 001)
                 PIEZZO_o <= "10";
+                relay_o <= '1';
                 
             when others =>
                 RGB_o <= "111";   -- Blue (RGB = 001)
                 PIEZZO_o <= "00";
+                relay_o <= '0';
         end case;
     end process p_output_fsm;
 

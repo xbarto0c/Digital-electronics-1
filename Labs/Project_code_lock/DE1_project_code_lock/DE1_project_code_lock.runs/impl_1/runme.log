@@ -1,0 +1,77 @@
+
+*** Running vivado
+    with args -log top.vdi -applog -m64 -product Vivado -messageDb vivado.pb -mode batch -source top.tcl -notrace
+
+
+
+****** Vivado v2020.2 (64-bit)
+  **** SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+  **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+    ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+
+source top.tcl -notrace
+Command: link_design -top top -part xc7a35ticsg324-1L
+Design is defaulting to srcset: sources_1
+Design is defaulting to constrset: constrs_1
+INFO: [Device 21-403] Loading part xc7a35ticsg324-1L
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.003 . Memory (MB): peak = 1003.195 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 20 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2020.2
+INFO: [Project 1-570] Preparing netlist for logic optimization
+Parsing XDC File [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc]
+WARNING: [Vivado 12-584] No ports matched 'A(0)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:91]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:91]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'A(2)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:92]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:92]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'RGB(2)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:99]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:99]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'RGB(0)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:100]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:100]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'A(1)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:107]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:107]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'A(3)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:108]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:108]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+WARNING: [Vivado 12-584] No ports matched 'RGB(1)'. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:115]
+CRITICAL WARNING: [Common 17-55] 'set_property' expects at least one object. [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc:115]
+Resolution: If [get_<value>] was used to populate the object, check to make sure this command returns at least one valid object.
+Finished Parsing XDC File [C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/constrs_1/new/code_lock.xdc]
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1003.195 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+7 Infos, 7 Warnings, 7 Critical Warnings and 0 Errors encountered.
+link_design completed successfully
+link_design: Time (s): cpu = 00:00:10 ; elapsed = 00:00:13 . Memory (MB): peak = 1003.195 ; gain = 0.000
+Command: opt_design
+Attempting to get a license for feature 'Implementation' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Implementation' and/or device 'xc7a35ti'
+Running DRC as a precondition to command opt_design
+
+Starting DRC Task
+INFO: [DRC 23-27] Running DRC with 2 threads
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[0] has multiple drivers: door_lock_code/s_cnt_reg[0]/Q, and door_lock_code/s_cnt_reg[0]__0/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[1] has multiple drivers: door_lock_code/s_cnt_reg[1]__0/Q, and door_lock_code/s_cnt_reg[1]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[2] has multiple drivers: door_lock_code/s_cnt_reg[2]__0/Q, and door_lock_code/s_cnt_reg[2]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[3] has multiple drivers: door_lock_code/s_cnt_reg[3]/Q, and door_lock_code/s_cnt_reg[3]__0/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[4] has multiple drivers: door_lock_code/s_cnt_reg[4]/Q, and door_lock_code/s_cnt_reg[4]__0/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[5] has multiple drivers: door_lock_code/s_cnt_reg[5]__0/Q, and door_lock_code/s_cnt_reg[5]/Q.
+ERROR: [DRC MDRV-1] Multiple Driver Nets: Net door_lock_code/s_cnt[6] has multiple drivers: door_lock_code/s_cnt_reg[6]/Q, and door_lock_code/s_cnt_reg[6]__0/Q.
+INFO: [Project 1-461] DRC finished with 7 Errors
+INFO: [Project 1-462] Please refer to the DRC report (report_drc) for more information.
+ERROR: [Vivado_Tcl 4-78] Error(s) found during DRC. Opt_design not run.
+
+Time (s): cpu = 00:00:03 ; elapsed = 00:00:02 . Memory (MB): peak = 1003.195 ; gain = 0.000
+INFO: [Common 17-83] Releasing license: Implementation
+12 Infos, 7 Warnings, 7 Critical Warnings and 8 Errors encountered.
+opt_design failed
+ERROR: [Common 17-39] 'opt_design' failed due to earlier errors.
+
+INFO: [Common 17-206] Exiting Vivado at Wed Apr 28 12:17:41 2021...
