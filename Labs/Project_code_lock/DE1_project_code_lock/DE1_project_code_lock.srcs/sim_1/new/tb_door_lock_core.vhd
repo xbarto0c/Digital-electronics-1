@@ -32,7 +32,6 @@ architecture testbench of tb_door_lock_core is
     signal   s_reset     :   std_logic; -- synchronní reset
     signal   s_btn_i     :   std_logic_vector( 4 - 1 downto 0);
      
-    signal   s_RGB_o     :   std_logic_vector( 3 - 1 downto 0);
     signal   s_piezzo_o  :   std_logic_vector( 2 - 1 downto 0);
     signal   s_relay_o   :   std_logic; 
     
@@ -46,8 +45,6 @@ begin
     reset     => s_reset,
     
     btn_i     => s_btn_i,
-    RGB_o     => s_RGB_o,
-    piezzo_o  => s_piezzo_o,
     relay_o   => s_relay_o
     
     
@@ -136,6 +133,8 @@ begin
         s_btn_i  <= "1100"; -- *
         wait for 10 ns;
         s_btn_i  <= "1001";
+        wait for 10 ns;
+        s_btn_i  <= "1101";
         wait for 10 ns;
 
         report "Stimulus process finished" severity note;

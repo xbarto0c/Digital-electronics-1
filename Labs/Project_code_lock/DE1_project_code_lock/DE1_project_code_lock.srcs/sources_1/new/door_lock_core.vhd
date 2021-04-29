@@ -31,7 +31,6 @@ entity door_lock_core is
         btn_i     : in  std_logic_vector( 4 - 1 downto 0);
         
         RGB_o     : out std_logic_vector( 3 - 1 downto 0);
-        piezzo_o  : out std_logic_vector( 2 - 1 downto 0);
         relay_o   : out std_logic
     );
 end entity door_lock_core;
@@ -50,6 +49,8 @@ architecture Behavioral of door_lock_core is
     signal            s_en              : std_logic; -- dìlení signálu
     -- Local delay counter
     signal            s_cnt             : unsigned(11 - 1 downto 0) := b"000_0000_0000";
+    
+    signal            piezzo_o          : std_logic_vector( 2 - 1 downto 0);
       
     signal            display_o         : std_logic_vector(16 - 1 downto 0);
     shared variable   display_pos       : integer;
@@ -57,12 +58,11 @@ architecture Behavioral of door_lock_core is
     shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   set_new_password  : std_logic;
     shared variable   counter           : integer;
-    shared variable   RGB_LED_ON        : integer;
 
     -- Specific values for local counter
     constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; -- èekání
     constant c_DOOR_OPEN_TIME_3SEC               : unsigned(11 - 1 downto 0) := b"000_0000_1100"; -- èekání
-    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"100_1011_0000"; -- èekání
+    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"000_1011_0000"; -- èekání, bylo zde b"100_1011_0000"
     constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : unsigned(11 - 1 downto 0) := b"000_0000_0100"; -- èekání
     constant c_ZERO                              : unsigned(11 - 1 downto 0) := b"000_0000_0000";
 
@@ -74,20 +74,20 @@ begin
     -- signal is 100 MHz.
     
     -- JUST FOR SHORTER/FASTER SIMULATION
-   clk_en0 : entity work.clock_enable
-       generic map(
-                   g_MAX => 10       -- g_MAX = 250 ms / (1/100 MHz), bylo zde 25 000 000, vrátit sem / okomentovat !!!
-        )
-        port map(
-            clk   => clk,
-            reset => reset,
-            ce_o  => s_en
-        );
+   --clk_en0 : entity work.clock_enable
+       --generic map(
+                   --g_MAX => 10       -- g_MAX = 250 ms / (1/100 MHz), bylo zde 25 000 000, vrátit sem / okomentovat !!!
+        --)
+        --port map(
+            --clk   => clk,
+            --reset => reset,
+            --ce_o  => s_en
+        --);
    --cnt_up0 : entity work.cnt_up_down
         --port map(
             --clk      => clk,   
             --reset    => reset,
-            --en_i     => '1',
+            --en_i     => s_e,
             --cnt_up_i => '1',
             --cnt_o    => s_cnt
         --);
@@ -101,12 +101,12 @@ begin
             clk     => clk, 
             reset   => reset
         );
-   --piezzo0 : entity work.piezzo_driver
-    --    port map(
-    --        data0_i => piezzo_o,
-    --        clk     => clk, 
-    --        reset   => reset
-    --    );
+   piezzo0 : entity work.piezo_driver
+        port map(
+            mode_i  => piezzo_o,
+            clk     => clk, 
+            reset   => reset
+        );
 
     --------------------------------------------------------------------
     -- p_traffic_fsm:
@@ -115,19 +115,14 @@ begin
     --------------------------------------------------------------------
     p_door_lock_core : process(clk) -- ovládání stavù
     begin
-        if s_en = '1' then
-            s_cnt <= s_cnt + 1;
-        end if;
         if rising_edge(clk) then
             if (reset = '1') then       -- Synchronous reset
                 s_state <= IDLE ;      -- Set initial state
                 s_cnt   <= c_ZERO;      -- Clear all bits
                 counter := 0;
-                RGB_LED_ON := 0;
                 current_password := "0000000000000000";
                 display_pos := 0;
                 display_o   <= "1101110111011101";
-
             else
                 case s_state is
 
@@ -137,16 +132,28 @@ begin
                         -- Count up to c_DELAY_1SEC
                         if (btn_i = "1100") then
                             s_state <= ENTRY_PASSWORD_NEW;
+                            s_cnt   <= c_ZERO;
                         elsif (btn_i = "1010") then
                             -- Move to the next state
                             s_state <= ENTRY_PASSWORD;
+                            s_cnt   <= c_ZERO;
                         else
                             s_state <= IDLE;
+                            s_cnt   <= c_ZERO;
+                        end if;
+                        
+                        if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
+                            s_cnt <= s_cnt + 1;
+                            display_o <= "1011101110111011";
+                        else
+                            s_cnt <= c_ZERO;
+                            display_o <= "1010101010101010";
                         end if;
 
                     when D_OPEN =>
                     
                         if (s_cnt < c_DOOR_OPEN_TIME_3SEC) then
+                            s_cnt <= s_cnt + 1;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
@@ -157,6 +164,7 @@ begin
                     when ALARM =>
                     
                         if (s_cnt < c_ALARM_ENGAGED_TIME_300SEC) then
+                            s_cnt <= s_cnt + 1;
                         else
                             -- Move to the next state
                             s_state <= IDLE;
@@ -166,6 +174,7 @@ begin
                     when ENTRY_PASSWORD =>
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
+                            s_cnt <= s_cnt + 1;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then 
                                 case display_pos is
                                     when 0 =>
@@ -185,8 +194,10 @@ begin
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
                                             s_state <= D_OPEN;
+                                            s_cnt   <= c_ZERO;
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
+                                            s_cnt   <= c_ZERO;
                                         end if;
                                         set_new_password := '0';
                                         display_pos := 0;
@@ -200,14 +211,16 @@ begin
                         end if;
                         
                     when WRONG_PASSWORD =>
-                    
                         if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
+                            s_cnt <= s_cnt + 1;
                         else
                             if (counter > 2) then 
                                 s_state <= ALARM;
+                                s_cnt   <= c_ZERO;
                                 counter := 0;
                             elsif (set_new_password = '1') then
                                 s_state <= ENTRY_PASSWORD_NEW;
+                                s_cnt   <= c_ZERO;
                                 counter := counter + 1;
                             else
                                 s_state <= ENTRY_PASSWORD;
@@ -219,6 +232,7 @@ begin
                     when ENTRY_PASSWORD_NEW =>
                     
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
+                            s_cnt <= s_cnt + 1;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
                                 case display_pos is
                                     when 0 =>
@@ -238,8 +252,10 @@ begin
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
                                             s_state <= NEW_PASSWORD;
+                                            s_cnt   <= c_ZERO;
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
+                                            s_cnt   <= c_ZERO;
                                         end if;
                                         set_new_password := '1';
                                         display_pos := 0;
@@ -258,11 +274,13 @@ begin
                             -- Move to the next state
                             current_password := entered_password;
                             s_state <= D_OPEN;
+                            s_cnt   <= c_ZERO;
                             -- Reset local counter value
                     when others => 
                         s_state <= IDLE;
 
                 end case;
+            
             end if; -- Synchronous reset
         end if; -- Rising edge
     end process p_door_lock_core;
@@ -273,23 +291,7 @@ begin
         case s_state is
             when IDLE =>
                 RGB_o <= "001";   -- Red (RGB = 100)
-                if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                    display_o <= "1011101110111011";
-                else
-                    display_o <= "1010101010101010";
-                end if;
-                
-            when WRONG_PASSWORD =>
-            if (s_cnt > c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                if(RGB_LED_ON = 1) then
-                    RGB_o <= "111";   -- RED (RGB = 100)
-                    RGB_LED_ON := 0;
-                else
-                    RGB_o <= "011";
-                    RGB_LED_ON := 1;
-                end if;
-                s_cnt <= c_ZERO;
-            end if;    
+
             when ALARM =>
                 RGB_o <= "011";   -- Blue (RGB = 001)
                 PIEZZO_o <= "01";
@@ -299,8 +301,11 @@ begin
                 PIEZZO_o <= "10";
                 relay_o <= '1';
                 
+            when WRONG_PASSWORD =>
+                RGB_o <= "011";
+                
             when others =>
-                RGB_o <= "111";   -- Blue (RGB = 001)
+                RGB_o <= "111";
                 PIEZZO_o <= "00";
                 relay_o <= '0';
         end case;

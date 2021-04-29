@@ -42,7 +42,7 @@ end entity driver_7seg_4digits;
 architecture Behavioral of driver_7seg_4digits is
 
     -- Internal clock enable
-    signal s_en  : std_logic;
+    signal s_enb  : std_logic;
     -- Internal 2-bit counter for multiplexing 4 digits
     signal s_cnt : std_logic_vector(2 - 1 downto 0);
     -- Internal 4-bit value for 7-segment decoder
@@ -61,7 +61,7 @@ begin
             --- WRITE YOUR CODE HERE
             clk     => clk,
             reset   => reset,
-            ce_o    => s_en
+            ce_o    => s_enb
         );
 
     --------------------------------------------------------------------
@@ -76,7 +76,7 @@ begin
             --- WRITE YOUR CODE HERE
             clk         =>  clk,
             reset       =>  reset,
-            en_i        =>  s_en,
+            en_i        =>  s_enb,
             cnt_up_i    =>  '1',
             cnt_o       =>  s_cnt
         );
