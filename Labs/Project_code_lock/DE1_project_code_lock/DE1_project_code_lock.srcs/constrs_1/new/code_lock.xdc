@@ -114,7 +114,7 @@ set_property -dict { PACKAGE_PIN N14   IOSTANDARD LVCMOS33 } [get_ports { PB0 }]
 set_property -dict { PACKAGE_PIN U17   IOSTANDARD LVCMOS33 } [get_ports { PBH }]; #IO_L17P_T2_A14_D30_14 		Sch=ck_io[37]
 set_property -dict { PACKAGE_PIN T18   IOSTANDARD LVCMOS33 } [get_ports { RGB(1) }]; #IO_L7N_T1_D10_14 			Sch=ck_io[38]
 #set_property -dict { PACKAGE_PIN R18   IOSTANDARD LVCMOS33 } [get_ports { ck_io39 }]; #IO_L7P_T1_D09_14 			Sch=ck_io[39]
-#set_property -dict { PACKAGE_PIN P18   IOSTANDARD LVCMOS33 } [get_ports { ck_io40 }]; #IO_L9N_T1_DQS_D13_14 		Sch=ck_io[40]
+set_property -dict { PACKAGE_PIN P18   IOSTANDARD LVCMOS33 } [get_ports { BUZZ }]; #IO_L9N_T1_DQS_D13_14 		Sch=ck_io[40]
 set_property -dict { PACKAGE_PIN N17   IOSTANDARD LVCMOS33 } [get_ports { REL }]; #IO_L9P_T1_DQS_14 			Sch=ck_io[41]
 
 ## ChipKit Outer Analog Header - as Single-Ended Analog Inputs

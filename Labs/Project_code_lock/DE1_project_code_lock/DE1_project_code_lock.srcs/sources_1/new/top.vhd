@@ -58,7 +58,8 @@ entity top is
            CG        : out STD_LOGIC;
            CDP       : out STD_LOGIC;
            A         : out STD_LOGIC_VECTOR (4 - 1 downto 0);
-           REL       : out STD_LOGIC
+           REL       : out STD_LOGIC;
+           BUZZ      : out STD_LOGIC
           );
 end top;
 
@@ -100,11 +101,12 @@ begin
             RGB_o(1)   => RGB(1),
             RGB_o(0)   => RGB(0),
             relay_o    => REL,
-            btn_i      => btn_i
-
+            btn_i      => btn_i,
+            buzzer_o   => BUZZ
         );   
     keyboard_decoder0 : entity work.keyboard_decoder
         port map(
+            clk         => CLK100MHZ,
             decoder_out => btn_i,
             btn_1       => PB1,
             btn_2       => PB2,

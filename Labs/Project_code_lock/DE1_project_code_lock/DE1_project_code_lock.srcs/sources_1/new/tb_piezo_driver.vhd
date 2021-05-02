@@ -19,7 +19,7 @@ begin
         
     p_clk : process
     begin
-        while now < 10000 ns loop
+        while now < 1000000 ns loop
             s_clk <= '0';
             wait for 10 ns / 2;
             s_clk <= '1';
@@ -30,13 +30,13 @@ begin
     
     p_stimulus : process
     begin
-        while now < 10000 ns loop
+        while now < 1000000 ns loop
             s_mode_i <= "00";
-            wait for 2000 ns;
+            wait for 20000 ns;
             s_mode_i <= "01";
-            wait for 2000 ns;
+            wait for 20000 ns;
             s_mode_i <= "10";
-            wait for 2000 ns;
+            wait for 20000 ns;
         end loop;
         wait;
     end process p_stimulus;

@@ -1,20 +1,7 @@
 ------------------------------------------------------------------------
+-- door_lock_core - main module of door lock terminal
 --
--- Traffic light controller using FSM.
--- Nexys A7-50T, Vivado v2020.1.1, EDA Playground
---
--- Copyright (c) 2020-Present Tomas Fryza
--- Dept. of Radio Electronics, Brno University of Technology, Czechia
--- This work is licensed under the terms of the MIT license.
---
--- This code is inspired by:
--- [1] LBEbooks, Lesson 92 - Example 62: Traffic Light Controller
---     https://www.youtube.com/watch?v=6_Rotnw1hFM
--- [2] David Williams, Implementing a Finite State Machine in VHDL
---     https://www.allaboutcircuits.com/technical-articles/implementing-a-finite-state-machine-in-vhdl/
--- [3] VHDLwhiz, One-process vs two-process vs three-process state machine
---     https://vhdlwhiz.com/n-process-state-machine/
---
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
 ------------------------------------------------------------------------
 
 library ieee;
@@ -22,16 +9,18 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 ------------------------------------------------------------------------
--- Entity declaration for traffic light controller
+-- Entity declaration for core of the door lock terminal
 ------------------------------------------------------------------------
+
 entity door_lock_core is
     port(
-        clk       : in  std_logic;
-        reset     : in  std_logic; -- synchronní reset
+        clk       : in  std_logic; -- Clock Signal
+        reset     : in  std_logic; -- Synchronous Reset
         btn_i     : in  std_logic_vector( 4 - 1 downto 0);
         
         RGB_o     : out std_logic_vector( 3 - 1 downto 0);
-        relay_o   : out std_logic
+        relay_o   : out std_logic;
+        buzzer_o  : out std_logic
     );
 end entity door_lock_core;
 
@@ -42,11 +31,11 @@ architecture Behavioral of door_lock_core is
 
     -- Define the states
     type   t_state is (IDLE, D_OPEN,  ALARM,
-                       ENTRY_PASSWORD, WRONG_PASSWORD, ENTRY_PASSWORD_NEW, NEW_PASSWORD); -- definice stavù
+                       ENTRY_PASSWORD, WRONG_PASSWORD, ENTRY_PASSWORD_NEW, NEW_PASSWORD); 
     -- Define the signal that uses different states
-    signal            s_state           : t_state; -- signál používající stavy z t_state
+    signal            s_state           : t_state; 
     -- Internal clock enable
-    signal            s_en              : std_logic; -- dìlení signálu
+    signal            s_en              : std_logic; -- signal division
     -- Local delay counter
     signal            s_cnt             : unsigned(11 - 1 downto 0) := b"000_0000_0000";
     
@@ -104,8 +93,8 @@ begin
    piezzo0 : entity work.piezo_driver
         port map(
             mode_i  => piezzo_o,
-            clk     => clk, 
-            reset   => reset
+            clk     => clk,
+            piezo_o => buzzer_o
         );
 
     --------------------------------------------------------------------
@@ -230,7 +219,6 @@ begin
                         end if;   
                         
                     when ENTRY_PASSWORD_NEW =>
-                    
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
                             s_cnt <= s_cnt + 1;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
@@ -267,47 +255,75 @@ begin
                             -- Reset local counter value
                             s_cnt   <= c_ZERO;
                         end if;
-                    -- It is a good programming practice to use the 
-                    -- OTHERS clause, even if all CASE choices have 
-                    -- been made. 
+                     
                     when NEW_PASSWORD =>
-                            -- Move to the next state
-                            current_password := entered_password;
-                            s_state <= D_OPEN;
+                        if (s_cnt < c_ENTRY_TIME_20SEC) then
+                            s_cnt <= s_cnt + 1;
+                            if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
+                                case display_pos is
+                                    when 0 =>
+                                        display_o(3 downto 0) <= btn_i;
+                                        entered_password(15 downto 12) := btn_i;
+                                        display_pos := 1;
+                                    when 1 =>
+                                        display_o(7 downto 4) <= btn_i;
+                                        entered_password(11 downto 8) := btn_i;
+                                        display_pos := 2;
+                                    when 2 =>
+                                        display_o(11 downto 8) <= btn_i;
+                                        entered_password(7 downto 4) := btn_i;
+                                        display_pos := 3;
+                                    when others =>
+                                        display_o(15 downto 12) <= btn_i;
+                                        entered_password(3 downto 0) := btn_i;
+                                        current_password := entered_password;
+                                        s_state <= D_OPEN;
+                                        s_cnt   <= c_ZERO;
+                                        set_new_password := '0';
+                                        display_pos := 0;
+                                end case;                                        
+                           end if;
+                        else
+                            s_state <= IDLE;
                             s_cnt   <= c_ZERO;
-                            -- Reset local counter value
+                        end if;
+                            
                     when others => 
                         s_state <= IDLE;
-
+                
                 end case;
             
             end if; -- Synchronous reset
         end if; -- Rising edge
     end process p_door_lock_core;
     
-    
-    p_output_fsm : process(s_state) -- ovládání výstupù
+    p_output_fsm : process(s_state) -- Outputs control
     begin
         case s_state is
             when IDLE =>
-                RGB_o <= "001";   -- Red (RGB = 100)
-
-            when ALARM =>
-                RGB_o <= "011";   -- Blue (RGB = 001)
-                PIEZZO_o <= "01";
-          
+                RGB_o <= "110";   -- Blue RGB = 001
+                relay_o <= '0';   -- Door closed
+                piezzo_o <= "00"; -- Piezo off
+                
             when D_OPEN =>
-                RGB_o <= "101";   -- Blue (RGB = 001)
-                PIEZZO_o <= "10";
-                relay_o <= '1';
-                
+                RGB_o <= "101";   -- Green RGB = 010
+                relay_o <= '1';   -- Door opened
+                PIEZZO_o <= "10"; -- Piezo constant
+
             when WRONG_PASSWORD =>
-                RGB_o <= "011";
+                RGB_o <= "011";   -- Red RGB = 100
+                relay_o <= '0';   -- Door closed
+                PIEZZO_o <= "01"; -- Piezo beeping
                 
+            when ALARM =>
+                RGB_o <= "011";   -- Red RGB = 100
+                relay_o <= '0';   -- Door closed
+                PIEZZO_o <= "01"; -- Piezo beeping
+                               
             when others =>
-                RGB_o <= "111";
-                PIEZZO_o <= "00";
-                relay_o <= '0';
+                RGB_o <= "111";   -- Off RGB = 000
+                relay_o <= '0';   -- Door closed
+                PIEZZO_o <= "00"; -- Piezo off
         end case;
     end process p_output_fsm;
 

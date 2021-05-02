@@ -1,10 +1,13 @@
 # compile vhdl design source files
 vhdl xil_defaultlib  \
+"../../../../DE1_project_code_lock.srcs/sources_1/new/clock_divider.vhd" \
 "../../../../DE1_project_code_lock.srcs/sources_1/new/clock_enable.vhd" \
 "../../../../../../06-display_driver/project_1/project_1.srcs/sources_1/new/cnt_up_down.vhd" \
 "../../../../DE1_project_code_lock.srcs/sources_1/new/cnt_up_down.vhd" \
 "../../../../../../06-display_driver/project_1/project_1.srcs/sources_1/new/hex_7_seg.vhd" \
 "../../../../DE1_project_code_lock.srcs/sources_1/new/display_driver7seg_digit.vhd" \
+"../../../../DE1_project_code_lock.srcs/sources_1/new/mux_2to1.vhd" \
+"../../../../DE1_project_code_lock.srcs/sources_1/new/piezo_driver.vhd" \
 "../../../../DE1_project_code_lock.srcs/sources_1/new/door_lock_core.vhd" \
 "../../../../DE1_project_code_lock.srcs/sim_1/new/tb_door_lock_core.vhd" \
 

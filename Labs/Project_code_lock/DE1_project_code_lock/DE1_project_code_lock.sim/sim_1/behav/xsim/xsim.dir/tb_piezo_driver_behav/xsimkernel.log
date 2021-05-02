@@ -1,0 +1,7 @@
+Running: xsim.dir/tb_piezo_driver_behav/xsimk.exe -simmode gui -wdb tb_piezo_driver_behav.wdb -simrunnum 0 -socket 60018
+Design successfully loaded
+Design Loading Memory Usage: 6368 KB (Peak: 6368 KB)
+Design Loading CPU Usage: 46 ms
+Simulation completed
+Simulation Memory Usage: 12744 KB (Peak: 12744 KB)
+Simulation CPU Usage: 108 ms
