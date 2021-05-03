@@ -1,4 +1,9 @@
--- Multiplexer 2-to-1
+
+------------------------------------------------------------------------
+-- mux_2to1 - Two to one multiplexer
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+------------------------------------------------------------------------
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;

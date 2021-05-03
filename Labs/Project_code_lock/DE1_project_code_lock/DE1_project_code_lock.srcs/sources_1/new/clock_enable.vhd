@@ -1,22 +1,9 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 10.03.2021 13:10:18
--- Design Name: 
--- Module Name: clock_enable - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+------------------------------------------------------------------------
+-- clock_enable - module responsible for dividing the clock signal
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+------------------------------------------------------------------------
+
 
 
 library ieee;               -- Standard library

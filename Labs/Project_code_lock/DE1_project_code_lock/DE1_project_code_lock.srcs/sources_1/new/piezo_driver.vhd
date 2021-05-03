@@ -1,3 +1,10 @@
+------------------------------------------------------------------------
+-- piezo_driver - module made to drive a PIEZZO speaker
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+------------------------------------------------------------------------
+
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 

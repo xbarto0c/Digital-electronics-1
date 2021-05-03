@@ -1,3 +1,9 @@
+------------------------------------------------------------------------
+-- clock_divider - module responsible for dividin the clock signal
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
@@ -8,7 +14,7 @@ entity clock_divider is
     );    
     Port (
         clk     : in std_logic;
-        rst   : in std_logic;
+        rst     : in std_logic;
         clk_out : out std_logic
     );
 end clock_divider;

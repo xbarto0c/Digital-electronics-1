@@ -1,4 +1,9 @@
 -- Keyboard decoder (0-9,*,#)
+-------------------------------------------------------------------------------------------------
+-- keyboard_decoder - module responsible for decoding parallel button inputs into a serial vector
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+-------------------------------------------------------------------------------------------------
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;

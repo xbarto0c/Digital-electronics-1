@@ -1,13 +1,9 @@
-------------------------------------------------------------------------
+-------------------------------------------------------------------
+-- cnt_up_down - module made to handle counting up or down
 --
--- N-bit Up/Down binary counter.
--- Nexys A7-50T, Vivado v2020.1.1, EDA Playground
---
--- Copyright (c) 2019-Present Tomas Fryza
--- Dept. of Radio Electronics, Brno University of Technology, Czechia
--- This work is licensed under the terms of the MIT license.
---
-------------------------------------------------------------------------
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+-------------------------------------------------------------------
+
 
 library ieee;
 use ieee.std_logic_1164.all;

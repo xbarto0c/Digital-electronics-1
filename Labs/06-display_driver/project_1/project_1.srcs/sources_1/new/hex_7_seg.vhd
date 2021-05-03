@@ -1,22 +1,9 @@
-----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
--- 
--- Create Date: 03.03.2021 13:14:00
--- Design Name: 
--- Module Name: segment2 - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
--- 
--- Dependencies: 
--- 
--- Revision:
--- Revision 0.01 - File Created
--- Additional Comments:
--- 
-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
+-- hex_7_seg - module responsible for decoding binary number into a number displayed on a LED display
+--
+-- Baránek Michal, Bartoò Jan, Baøina Tadeáš, Bekeè Alexander 2021
+-----------------------------------------------------------------------------------------------------
+
 
 
 library IEEE;
