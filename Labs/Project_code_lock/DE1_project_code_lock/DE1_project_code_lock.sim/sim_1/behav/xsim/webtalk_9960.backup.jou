@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon May  3 09:27:07 2021
+# Process ID: 9960
+# Current directory: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.sim/sim_1/behav/xsim/xsim.dir/tb_hex_7_seg_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.sim/sim_1/behav/xsim/xsim.dir/tb_hex_7_seg_behav/webtalk/xsim_webtalk.tcl -notrace

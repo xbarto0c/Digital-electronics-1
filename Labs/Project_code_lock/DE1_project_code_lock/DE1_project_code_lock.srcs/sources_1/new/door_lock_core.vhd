@@ -61,25 +61,7 @@ begin
     -- Instance (copy) of clock_enable entity generates an enable pulse
     -- every 250 ms (4 Hz). Remember that the frequency of the clock 
     -- signal is 100 MHz.
-    
-    -- JUST FOR SHORTER/FASTER SIMULATION
-   --clk_en0 : entity work.clock_enable
-       --generic map(
-                   --g_MAX => 10       -- g_MAX = 250 ms / (1/100 MHz), bylo zde 25 000 000, vrátit sem / okomentovat !!!
-        --)
-        --port map(
-            --clk   => clk,
-            --reset => reset,
-            --ce_o  => s_en
-        --);
-   --cnt_up0 : entity work.cnt_up_down
-        --port map(
-            --clk      => clk,   
-            --reset    => reset,
-            --en_i     => s_e,
-            --cnt_up_i => '1',
-            --cnt_o    => s_cnt
-        --);
+
    driver_7seg_4digits0 : entity work.driver_7seg_4digits
         port map(
             data0_i => display_o(3 downto 0),

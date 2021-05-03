@@ -48,7 +48,6 @@ entity top is
            PBC       : in  STD_LOGIC;
            PBH       : in  STD_LOGIC;
            RGB       : out STD_LOGIC_VECTOR (3 - 1 downto 0);
-           BTN       : in  STD_LOGIC_VECTOR (4 - 1 downto 0);
            CA        : out STD_LOGIC;
            CB        : out STD_LOGIC;
            CC        : out STD_LOGIC;

@@ -27,7 +27,7 @@ architecture Behavioral of keyboard_decoder is
 
     signal s_btn_in : STD_LOGIC_VECTOR(12 - 1 downto 0);
     
-begin
+    begin
 
     p_keyboard_decoder : process(clk)
     begin
