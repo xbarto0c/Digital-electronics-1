@@ -1,6 +1,6 @@
 Vivado Simulator 2020.2
 Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
-Running: D:/Vivado/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ea40e27c11504479b3fc12bc41875ea6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot tb_hex_7_seg_behav xil_defaultlib.tb_hex_7_seg -log elaborate.log 
+Running: D:/Vivado/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto ea40e27c11504479b3fc12bc41875ea6 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot tb_piezo_driver_behav xil_defaultlib.tb_piezo_driver -log elaborate.log 
 Using 2 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -10,6 +10,10 @@ Time Resolution for simulation is 1ps
 Compiling package std.standard
 Compiling package std.textio
 Compiling package ieee.std_logic_1164
-Compiling architecture behavioral of entity xil_defaultlib.hex_7_seg [hex_7_seg_default]
-Compiling architecture behavioral of entity xil_defaultlib.tb_hex_7_seg
-Built simulation snapshot tb_hex_7_seg_behav
+Compiling package ieee.numeric_std
+Compiling architecture behavioral of entity xil_defaultlib.clock_divider [\clock_divider(g_cycles=2)\]
+Compiling architecture behavioral of entity xil_defaultlib.clock_divider [\clock_divider(g_cycles=10)\]
+Compiling architecture behavioral of entity xil_defaultlib.mux_2to1 [mux_2to1_default]
+Compiling architecture behavioral of entity xil_defaultlib.piezo_driver [piezo_driver_default]
+Compiling architecture testbench of entity xil_defaultlib.tb_piezo_driver
+Built simulation snapshot tb_piezo_driver_behav

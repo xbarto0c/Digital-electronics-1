@@ -32,11 +32,11 @@ begin
     begin
         while now < 1000000 ns loop
             s_mode_i <= "00";
-            wait for 20000 ns;
+            wait for 600 ns;
             s_mode_i <= "01";
-            wait for 20000 ns;
+            wait for 600 ns;
             s_mode_i <= "10";
-            wait for 20000 ns;
+            wait for 600 ns;
         end loop;
         wait;
     end process p_stimulus;

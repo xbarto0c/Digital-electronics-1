@@ -16,7 +16,7 @@ architecture Behavioral of piezo_driver is
 begin
     clock_divider_0 : entity work.clock_divider
         Generic map(
-            g_CYCLES => 10 -- previously 100000
+            g_CYCLES => 2 -- previously 100000
         )
         Port map(
             clk => clk,
@@ -26,7 +26,7 @@ begin
         
     clock_divider_1 : entity work.clock_divider
         Generic map(
-            g_CYCLES => 500 -- previously 50000000
+            g_CYCLES => 10 -- previously 50000000
         )
         Port map(
             clk => clk,

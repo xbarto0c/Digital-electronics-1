@@ -16,8 +16,6 @@ architecture testbench of tb_mux_2to1 is
     -- Local signals
     signal s_a       : std_logic;
     signal s_b       : std_logic;
-    signal s_c       : std_logic;
-    signal s_d       : std_logic;
     signal s_sel     : std_logic;
    
     signal s_f       : std_logic;
