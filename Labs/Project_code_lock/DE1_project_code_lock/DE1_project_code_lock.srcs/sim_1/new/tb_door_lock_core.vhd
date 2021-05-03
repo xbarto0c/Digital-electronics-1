@@ -20,6 +20,7 @@ architecture testbench of tb_door_lock_core is
     signal   s_rgb_o     :   std_logic_vector(3 - 1 downto 0);
     signal   s_relay_o   :   std_logic;
     signal   s_buzzer_o  :   std_logic;
+    signal   s_display   :   std_logic_vector(16 - 1 downto 0);
     
 begin
     -- Connecting testbench signals with driver_7seg_4digits entity
@@ -33,7 +34,8 @@ begin
             btn_i     => s_btn_i,
             relay_o   => s_relay_o,
             buzzer_o  => s_buzzer_o,
-            RGB_o     => s_rgb_o
+            RGB_o     => s_rgb_o,
+            display_o => s_display
     );
     --------------------------------------------------------------------
     -- Clock generation process

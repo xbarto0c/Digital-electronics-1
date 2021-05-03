@@ -101,7 +101,8 @@ begin
             RGB_o(0)   => RGB(0),
             relay_o    => REL,
             btn_i      => btn_i,
-            buzzer_o   => BUZZ
+            buzzer_o   => BUZZ,
+            display_o  => display_o
         );   
     keyboard_decoder0 : entity work.keyboard_decoder
         port map(

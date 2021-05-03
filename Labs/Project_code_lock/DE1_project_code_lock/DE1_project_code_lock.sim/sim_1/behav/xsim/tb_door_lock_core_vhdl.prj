@@ -19,6 +19,7 @@ vhdl xil_defaultlib  \
 "../../../../DE1_project_code_lock.srcs/sim_1/new/tb_clock_enable.vhd" \
 "../../../../DE1_project_code_lock.srcs/sim_1/new/tb_mux_2bit_4to1.vhd" \
 "../../../../DE1_project_code_lock.srcs/sim_1/new/tb_hex_7_seg.vhd" \
+"../../../../DE1_project_code_lock.srcs/sim_1/new/tb_clock_divider.vhd" \
 
 # Do not sort compile order
 nosort

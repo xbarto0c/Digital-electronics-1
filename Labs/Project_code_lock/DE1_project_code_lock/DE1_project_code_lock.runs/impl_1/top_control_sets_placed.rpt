@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
-| Date         : Mon May  3 10:45:40 2021
+| Date         : Mon May  3 11:30:33 2021
 | Host         : DESKTOP-K1L16CN running 64-bit major release  (build 9200)
 | Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
 | Design       : top
@@ -23,11 +23,11 @@ Table of Contents
 +----------------------------------------------------------+-------+
 |                          Status                          | Count |
 +----------------------------------------------------------+-------+
-| Total control sets                                       |    12 |
-|    Minimum number of control sets                        |    12 |
+| Total control sets                                       |    16 |
+|    Minimum number of control sets                        |    16 |
 |    Addition due to synthesis replication                 |     0 |
 |    Addition due to physical synthesis replication        |     0 |
-| Unused register locations in slices containing registers |    28 |
+| Unused register locations in slices containing registers |    44 |
 +----------------------------------------------------------+-------+
 * Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
 ** Run report_qor_suggestions for automated merging and remapping suggestions
@@ -39,9 +39,9 @@ Table of Contents
 +--------------------+-------+
 |       Fanout       | Count |
 +--------------------+-------+
-| Total control sets |    12 |
+| Total control sets |    16 |
 | >= 0 to < 4        |     1 |
-| >= 4 to < 6        |     3 |
+| >= 4 to < 6        |     7 |
 | >= 6 to < 8        |     1 |
 | >= 8 to < 10       |     1 |
 | >= 10 to < 12      |     0 |
@@ -58,12 +58,12 @@ Table of Contents
 +--------------+-----------------------+------------------------+-----------------+--------------+
 | Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
 +--------------+-----------------------+------------------------+-----------------+--------------+
-| No           | No                    | No                     |              28 |           18 |
+| No           | No                    | No                     |              28 |           15 |
 | No           | No                    | Yes                    |               0 |            0 |
 | No           | Yes                   | No                     |              93 |           24 |
-| Yes          | No                    | No                     |              12 |            3 |
+| Yes          | No                    | No                     |              12 |            5 |
 | Yes          | No                    | Yes                    |               0 |            0 |
-| Yes          | Yes                   | No                     |              63 |           19 |
+| Yes          | Yes                   | No                     |              79 |           25 |
 +--------------+-----------------------+------------------------+-----------------+--------------+
 
 
@@ -74,13 +74,17 @@ Table of Contents
 |                 Clock Signal                |                 Enable Signal                |               Set/Reset Signal              | Slice Load Count | Bel Load Count | Bels / Slice |
 +---------------------------------------------+----------------------------------------------+---------------------------------------------+------------------+----------------+--------------+
 |  door_lock_code/piezzo0/piezo_o_reg_i_2_n_0 |                                              |                                             |                1 |              1 |         1.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_display_o[7]_i_1_n_0        | BTNC_IBUF                                   |                2 |              4 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_display_o[3]_i_1_n_0        | BTNC_IBUF                                   |                1 |              4 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_display_o[11]_i_1_n_0       | BTNC_IBUF                                   |                2 |              4 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_display_o[15]_i_1_n_0       | BTNC_IBUF                                   |                2 |              4 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG                        | keyboard_decoder0/E[1]                       |                                             |                2 |              4 |         2.00 |
 |  CLK100MHZ_IBUF_BUFG                        | keyboard_decoder0/E[2]                       |                                             |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG                        | keyboard_decoder0/E[0]                       |                                             |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG                        | keyboard_decoder0/E[1]                       |                                             |                1 |              4 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/FSM_onehot_s_state[6]_i_1_n_0 | BTNC_IBUF                                   |                3 |              7 |         2.33 |
-|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_cnt                         | BTNC_IBUF                                   |                4 |              8 |         2.00 |
-|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/current_password[15]_i_1_n_0  | BTNC_IBUF                                   |                4 |             16 |         4.00 |
-|  CLK100MHZ_IBUF_BUFG                        |                                              |                                             |               17 |             27 |         1.59 |
+|  CLK100MHZ_IBUF_BUFG                        | keyboard_decoder0/E[0]                       |                                             |                2 |              4 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/FSM_onehot_s_state[6]_i_1_n_0 | BTNC_IBUF                                   |                2 |              7 |         3.50 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/s_cnt_0                       | BTNC_IBUF                                   |                4 |              8 |         2.00 |
+|  CLK100MHZ_IBUF_BUFG                        | door_lock_code/current_password_1            | BTNC_IBUF                                   |                4 |             16 |         4.00 |
+|  CLK100MHZ_IBUF_BUFG                        |                                              |                                             |               14 |             27 |         1.93 |
 |  CLK100MHZ_IBUF_BUFG                        |                                              | driver_seg_4/clk_en0/s_cnt_local[0]_i_1_n_0 |                8 |             31 |         3.88 |
 |  CLK100MHZ_IBUF_BUFG                        |                                              | door_lock_code/piezzo0/clock_divider_0/tmp  |                8 |             31 |         3.88 |
 |  CLK100MHZ_IBUF_BUFG                        |                                              | door_lock_code/piezzo0/clock_divider_1/tmp  |                8 |             31 |         3.88 |
