@@ -95,9 +95,9 @@ read_vhdl -library xil_defaultlib {
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/display_driver7seg_digit.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/mux_2to1.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/piezo_driver.vhd
-  C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/door_lock_core.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/keyboard_decoder.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/top.vhd
+  C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/door_lock_core.vhd
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

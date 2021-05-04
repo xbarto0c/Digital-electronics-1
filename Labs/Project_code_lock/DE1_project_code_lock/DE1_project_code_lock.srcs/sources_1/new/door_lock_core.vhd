@@ -42,7 +42,7 @@ architecture Behavioral of door_lock_core is
     
     signal            piezzo_o          : std_logic_vector( 2 - 1 downto 0);
       
-    signal            s_display_o       : std_logic_vector(16 - 1 downto 0);
+    --signal            display_o       : std_logic_vector(16 - 1 downto 0);
     shared variable   display_pos       : integer;
     shared variable   current_password  : std_logic_vector(16 - 1 downto 0);
     shared variable   entered_password  : std_logic_vector(16 - 1 downto 0);
@@ -50,18 +50,26 @@ architecture Behavioral of door_lock_core is
     shared variable   counter           : integer;
 
     -- Specific values for local counter
-    constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; -- èekání
-    constant c_DOOR_OPEN_TIME_3SEC               : unsigned(11 - 1 downto 0) := b"000_0000_1100"; -- èekání
-    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"000_1011_0000"; -- èekání, bylo zde b"100_1011_0000"
-    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : unsigned(11 - 1 downto 0) := b"000_0000_0100"; -- èekání
-    constant c_ZERO                              : unsigned(11 - 1 downto 0) := b"000_0000_0000";
+    constant c_ENTRY_TIME_20SEC                  : unsigned(11 - 1 downto 0) := b"000_0101_0000"; 
+    constant c_DOOR_OPEN_TIME_3SEC               : unsigned(11 - 1 downto 0) := b"000_0000_1100"; 
+    constant c_ALARM_ENGAGED_TIME_300SEC         : unsigned(11 - 1 downto 0) := b"000_1011_0000"; --changed for the sake of simulation, otherwise ther would be b"100_1011_0000" 
+    constant c_WRONG_PASSWORD_BLINK_TIME_1SEC    : unsigned(11 - 1 downto 0) := b"000_0000_0100"; 
+    constant c_ZERO                              : unsigned(11 - 1 downto 0) := b"000_0000_0000"; 
 
 begin
 
     --------------------------------------------------------------------
     -- Instance (copy) of clock_enable entity generates an enable pulse
-    -- every 250 ms (4 Hz). Remember that the frequency of the clock 
-    -- signal is 100 MHz.
+    -- every 250 ms (4 Hz). 
+   clk_en0 : entity work.clock_enable
+        generic map(
+            g_MAX => 1       -- for the sake of simulation, otherwise there would be 25000000
+        )
+        port map(
+            clk   => clk,
+            reset => reset,
+            ce_o  => s_en
+        );
 
    piezzo0 : entity work.piezo_driver
         port map(
@@ -71,91 +79,101 @@ begin
         );
 
     --------------------------------------------------------------------
-    -- p_traffic_fsm:
     -- The sequential process with synchronous reset and clock_enable 
     -- entirely controls the s_state signal by CASE statement.
     --------------------------------------------------------------------
-    p_door_lock_core : process(clk) -- ovládání stavù
+    p_door_lock_core : process(clk) -- state control
     begin
         if rising_edge(clk) then
             if (reset = '1') then       -- Synchronous reset
                 s_state <= IDLE ;      -- Set initial state
-                s_cnt   <= c_ZERO;      -- Clear all bits
+                s_cnt   <= c_ZERO;      
                 counter := 0;
                 current_password := "0000000000000000";
                 display_pos := 0;
-                s_display_o   <= "1101110111011101";
+                display_o   <= "1011101110111011";
             else
                 case s_state is
 
-                    -- If the current state is STOP1, then wait 1 sec
-                    -- and move to the next GO_WAIT state.
+                    
                     when IDLE =>
-                        -- Count up to c_DELAY_1SEC
+                        
                         if (btn_i = "1100") then
                             s_state <= ENTRY_PASSWORD_NEW;
+                            display_o <= "1011101110111011";
                             s_cnt   <= c_ZERO;
                         elsif (btn_i = "1010") then
-                            -- Move to the next state
                             s_state <= ENTRY_PASSWORD;
+                            display_o <= "1011101110111011";
                             s_cnt   <= c_ZERO;
                         else
                             s_state <= IDLE;
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
                         
                         if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                            s_cnt <= s_cnt + 1;
-                            s_display_o <= "1011101110111011";
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
+                            display_o <= "1011101110111011";
+                        elsif (s_cnt < 2*c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
+                            display_o <= "1010101010101010";
                         else
                             s_cnt <= c_ZERO;
-                            s_display_o <= "1010101010101010";
+                            display_o <= "1010101010101010";
                         end if;
 
-                    when D_OPEN =>
-                    
+                    when D_OPEN =>                    
                         if (s_cnt < c_DOOR_OPEN_TIME_3SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                         else
-                            -- Move to the next state
                             s_state <= IDLE;
-                            -- Reset local counter value
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
                         
-                    when ALARM =>
-                    
+                    when ALARM =>                    
                         if (s_cnt < c_ALARM_ENGAGED_TIME_300SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                         else
-                            -- Move to the next state
                             s_state <= IDLE;
-                            -- Reset local counter value
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
-                    when ENTRY_PASSWORD =>
-                    
+                        
+                    when ENTRY_PASSWORD =>                    
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then 
                                 case display_pos is
                                     when 0 =>
-                                        s_display_o(3 downto 0) <= btn_i;
+                                        display_o(15 downto 12) <= btn_i;
                                         entered_password(15 downto 12) := btn_i;
                                         display_pos := 1;
                                     when 1 =>
-                                        s_display_o(7 downto 4) <= btn_i;
+                                        display_o(11 downto 8) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
                                         display_pos := 2;
                                     when 2 =>
-                                        s_display_o(11 downto 8) <= btn_i;
+                                        display_o(7 downto 4) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
                                         display_pos := 3;
                                     when others =>
-                                        s_display_o(15 downto 12) <= btn_i;
+                                        display_o(3 downto 0) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
                                             s_state <= D_OPEN;
+                                            display_o <= "1011101110111011";
                                             s_cnt   <= c_ZERO;
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
@@ -166,26 +184,30 @@ begin
                                 end case;
                            end if;
                         else
-                            -- Move to the next state
                             s_state <= IDLE;
-                            -- Reset local counter value
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
                         
                     when WRONG_PASSWORD =>
                         if (s_cnt < c_WRONG_PASSWORD_BLINK_TIME_1SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                         else
                             if (counter > 2) then 
                                 s_state <= ALARM;
                                 s_cnt   <= c_ZERO;
+                                display_o <= "1011101110111011";
                                 counter := 0;
                             elsif (set_new_password = '1') then
                                 s_state <= ENTRY_PASSWORD_NEW;
+                                display_o <= "1011101110111011";
                                 s_cnt   <= c_ZERO;
                                 counter := counter + 1;
                             else
                                 s_state <= ENTRY_PASSWORD;
+                                display_o <= "1011101110111011";
                                 counter := counter + 1;
                                 s_cnt   <= c_ZERO;
                             end if;
@@ -193,64 +215,69 @@ begin
                         
                     when ENTRY_PASSWORD_NEW =>
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
                                 case display_pos is
                                     when 0 =>
-                                        s_display_o(3 downto 0) <= btn_i;
+                                        display_o(15 downto 12) <= btn_i;
                                         entered_password(15 downto 12) := btn_i;
                                         display_pos := 1;
                                     when 1 =>
-                                        s_display_o(7 downto 4) <= btn_i;
+                                        display_o(11 downto 8) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
                                         display_pos := 2;
                                     when 2 =>
-                                        s_display_o(11 downto 8) <= btn_i;
+                                        display_o(7 downto 4) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
                                         display_pos := 3;
                                     when others =>
-                                        s_display_o(15 downto 12) <= btn_i;
+                                        display_o(3 downto 0) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
                                         if (entered_password = current_password) then
                                             s_state <= NEW_PASSWORD;
                                             s_cnt   <= c_ZERO;
+                                            display_o <= "1011101110111011";
                                         elsif (entered_password /= current_password) then
                                             s_state <= WRONG_PASSWORD;
                                             s_cnt   <= c_ZERO;
                                         end if;
                                         set_new_password := '1';
                                         display_pos := 0;
-                                end case;                                        
+                                end case;                                    
                            end if;
                         else
-                            -- Move to the next state
                             s_state <= IDLE;
-                            -- Reset local counter value
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
                      
                     when NEW_PASSWORD =>
                         if (s_cnt < c_ENTRY_TIME_20SEC) then
-                            s_cnt <= s_cnt + 1;
+                            if (s_en = '1') then
+                                s_cnt <= s_cnt + 1;
+                            end if;
                             if (btn_i /= "1101" and btn_i /= "1010" and btn_i /= "1100") then
                                 case display_pos is
                                     when 0 =>
-                                        s_display_o(3 downto 0) <= btn_i;
+                                        display_o(15 downto 12) <= btn_i;
                                         entered_password(15 downto 12) := btn_i;
                                         display_pos := 1;
                                     when 1 =>
-                                        s_display_o(7 downto 4) <= btn_i;
+                                        display_o(11 downto 8) <= btn_i;
                                         entered_password(11 downto 8) := btn_i;
                                         display_pos := 2;
                                     when 2 =>
-                                        s_display_o(11 downto 8) <= btn_i;
+                                        display_o(7 downto 4) <= btn_i;
                                         entered_password(7 downto 4) := btn_i;
                                         display_pos := 3;
                                     when others =>
-                                        s_display_o(15 downto 12) <= btn_i;
+                                        display_o(3 downto 0) <= btn_i;
                                         entered_password(3 downto 0) := btn_i;
                                         current_password := entered_password;
                                         s_state <= D_OPEN;
+                                        display_o <= "1011101110111011";
                                         s_cnt   <= c_ZERO;
                                         set_new_password := '0';
                                         display_pos := 0;
@@ -258,21 +285,22 @@ begin
                            end if;
                         else
                             s_state <= IDLE;
+                            display_o <= "1010101010101010";
                             s_cnt   <= c_ZERO;
                         end if;
                             
                     when others => 
                         s_state <= IDLE;
+                        display_o <= "1010101010101010";
                 
                 end case;
             
-            end if; -- Synchronous reset
+            end if;
             
-        end if; -- Rising edge
-        display_o <= s_display_o;
+        end if;
     end process p_door_lock_core;
     
-    p_output_fsm : process(s_state) -- Outputs control
+    p_output_fsm : process(s_state) -- peripherals control
     begin
         case s_state is
             when IDLE =>
