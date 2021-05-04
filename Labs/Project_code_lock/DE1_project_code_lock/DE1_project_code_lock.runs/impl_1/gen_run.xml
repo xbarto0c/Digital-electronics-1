@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a35ticsg324-1L" LaunchTime="1620123484">
+<GenRun Id="impl_1" LaunchPart="xc7a35ticsg324-1L" LaunchTime="1620125530">
   <File Type="BITSTR-BMM" Name="top_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="top_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="top_timing_summary_init.rpt"/>
@@ -89,19 +89,13 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../06-display_driver/project_1/project_1.srcs/sources_1/new/cnt_up_down.vhd">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PSRCDIR/sources_1/new/cnt_up_down.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../../06-display_driver/project_1/project_1.srcs/sources_1/new/hex_7_seg.vhd">
+    <File Path="$PSRCDIR/sources_1/new/hex_7_seg.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>

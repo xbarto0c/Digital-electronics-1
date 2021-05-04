@@ -70,6 +70,7 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
+set_param chipscope.maxJobs 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7a35ticsg324-1L
 
@@ -89,9 +90,8 @@ OPTRACE "Adding files" START { }
 read_vhdl -library xil_defaultlib {
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/clock_divider.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/clock_enable.vhd
-  C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/06-display_driver/project_1/project_1.srcs/sources_1/new/cnt_up_down.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/cnt_up_down.vhd
-  C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/06-display_driver/project_1/project_1.srcs/sources_1/new/hex_7_seg.vhd
+  C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/hex_7_seg.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/display_driver7seg_digit.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/mux_2to1.vhd
   C:/Users/Syn/Documents/xbarto0c/Digital-electronics-1/Labs/Project_code_lock/DE1_project_code_lock/DE1_project_code_lock.srcs/sources_1/new/piezo_driver.vhd
