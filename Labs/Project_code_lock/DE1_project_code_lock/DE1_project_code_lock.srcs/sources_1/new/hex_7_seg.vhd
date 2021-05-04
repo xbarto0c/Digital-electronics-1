@@ -31,14 +31,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity segment2 is
+entity hex_7_seg is
     Port ( 
            hex_i : in STD_LOGIC_VECTOR (4 - 1  downto 0);
            seg_o : out STD_LOGIC_VECTOR (7 - 1  downto 0)
           );
-end segment2;
+end hex_7_seg;
 
-architecture Behavioral of segment2 is
+architecture Behavioral of hex_7_seg is
 
 begin
     --------------------------------------------------------------------
